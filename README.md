@@ -1,5 +1,5 @@
-# FundSystem
-A fund analysis app.
+# FundAnalysisSystem
+Project of SE128. A fund analysis app.
 
 
    
