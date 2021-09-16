@@ -1,0 +1,169 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: HomeRankFundServiceImpl</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.fundgroup.backend.serviceImpl</a> ]
+</div>
+
+<h1>Coverage Summary for Class: HomeRankFundServiceImpl (com.fundgroup.backend.serviceImpl)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">HomeRankFundServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (33/ 33)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.fundgroup.backend.serviceImpl;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.fundgroup.backend.dao.HomeRankFundDao;
+<i>4</i>&nbsp;import com.fundgroup.backend.dto.HomeRankFund;
+<i>5</i>&nbsp;import com.fundgroup.backend.service.HomeRankFundService;
+<i>6</i>&nbsp;import org.slf4j.Logger;
+<i>7</i>&nbsp;import org.slf4j.LoggerFactory;
+<i>8</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>9</i>&nbsp;import org.springframework.stereotype.Service;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;import java.time.LocalDate;
+<i>12</i>&nbsp;import java.util.HashMap;
+<i>13</i>&nbsp;import java.util.List;
+<i>14</i>&nbsp;import java.util.Objects;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;@Service
+<b class="fc"><i>17</i>&nbsp;public class HomeRankFundServiceImpl implements HomeRankFundService {</b>
+<i>18</i>&nbsp;
+<b class="fc"><i>19</i>&nbsp;	private HashMap&lt;String, List&lt;HomeRankFund&gt;&gt; dataMap = new HashMap&lt;&gt;();</b>
+<b class="fc"><i>20</i>&nbsp;	private HashMap&lt;String, LocalDate&gt; dateMap = new HashMap&lt;&gt;();</b>
+<b class="fc"><i>21</i>&nbsp;	private static final Integer MAX_SIZE = 100000;</b>
+<i>22</i>&nbsp;
+<b class="fc"><i>23</i>&nbsp;	private final Logger logger = LoggerFactory.getLogger(HomeRankFundServiceImpl.class);</b>
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;	private String historyKey(Integer type) {
+<b class="fc"><i>26</i>&nbsp;		return &quot;h&quot; + type.toString();</b>
+<i>27</i>&nbsp;	}
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;	private String predictionKey(Integer type) {
+<b class="fc"><i>30</i>&nbsp;		return &quot;p&quot; + type.toString();</b>
+<i>31</i>&nbsp;	}
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;	@Autowired
+<i>34</i>&nbsp;	HomeRankFundDao homeRankFundDao;
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;	@Override
+<i>37</i>&nbsp;	public void clearCache() {
+<b class="fc"><i>38</i>&nbsp;		dataMap.clear();</b>
+<b class="fc"><i>39</i>&nbsp;		dateMap.clear();</b>
+<b class="fc"><i>40</i>&nbsp;		logger.info(&quot;Cache Cleared.&quot;);</b>
+<b class="fc"><i>41</i>&nbsp;	}</b>
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;	@Override
+<i>44</i>&nbsp;	public List&lt;HomeRankFund&gt; getHistoryTop(Integer page, Integer size, Integer type) {
+<b class="fc"><i>45</i>&nbsp;		if (type &lt;= 10 &amp;&amp; type &gt;= 0) {</b>
+<b class="fc"><i>46</i>&nbsp;			String key = historyKey(type);</b>
+<i>47</i>&nbsp;			List&lt;HomeRankFund&gt; data;
+<b class="fc"><i>48</i>&nbsp;			if (dataMap.get(key) == null || !Objects.equals(dateMap.get(key), LocalDate.now())) {</b>
+<b class="fc"><i>49</i>&nbsp;				data = homeRankFundDao.getHistoryTop(0, MAX_SIZE, type);</b>
+<b class="fc"><i>50</i>&nbsp;				dateMap.put(key, LocalDate.now());</b>
+<b class="fc"><i>51</i>&nbsp;				dataMap.put(key, data);</b>
+<i>52</i>&nbsp;			} else {
+<b class="fc"><i>53</i>&nbsp;				data = dataMap.get(key);</b>
+<i>54</i>&nbsp;			}
+<i>55</i>&nbsp;			try {
+<b class="fc"><i>56</i>&nbsp;				return data.subList(page * size, (page + 1) * size);</b>
+<b class="fc"><i>57</i>&nbsp;			} catch (IndexOutOfBoundsException ex) {</b>
+<b class="fc"><i>58</i>&nbsp;				logger.info(&quot;Catch IndexOutOfBoundsException.&quot;);</b>
+<b class="fc"><i>59</i>&nbsp;				return null;</b>
+<i>60</i>&nbsp;			}
+<i>61</i>&nbsp;		}
+<b class="fc"><i>62</i>&nbsp;		return null;</b>
+<i>63</i>&nbsp;	}
+<i>64</i>&nbsp;
+<i>65</i>&nbsp;	@Override
+<i>66</i>&nbsp;	public List&lt;HomeRankFund&gt; getPredictionTop(Integer page, Integer size, Integer type) {
+<b class="fc"><i>67</i>&nbsp;		if (type &lt;= 3 &amp;&amp; type &gt;= 1) {</b>
+<b class="fc"><i>68</i>&nbsp;			String key = predictionKey(type);</b>
+<i>69</i>&nbsp;			List&lt;HomeRankFund&gt; data;
+<i>70</i>&nbsp;//			if (dataMap.get(key) == null || !Objects.equals(dateMap.get(key), LocalDate.now())) {
+<b class="fc"><i>71</i>&nbsp;				data = homeRankFundDao.getPredictionTop(0, MAX_SIZE, type);</b>
+<b class="fc"><i>72</i>&nbsp;				dateMap.put(key, LocalDate.now());</b>
+<b class="fc"><i>73</i>&nbsp;				dataMap.put(key, data);</b>
+<i>74</i>&nbsp;//			} else {
+<i>75</i>&nbsp;//				data = dataMap.get(key);
+<i>76</i>&nbsp;//			}
+<i>77</i>&nbsp;			try {
+<b class="fc"><i>78</i>&nbsp;				return data.subList(page * size, (page + 1) * size);</b>
+<b class="fc"><i>79</i>&nbsp;			} catch (IndexOutOfBoundsException ex) {</b>
+<b class="fc"><i>80</i>&nbsp;				logger.info(&quot;Catch IndexOutOfBoundsException.&quot;);</b>
+<b class="fc"><i>81</i>&nbsp;				return null;</b>
+<i>82</i>&nbsp;			}
+<i>83</i>&nbsp;		}
+<b class="fc"><i>84</i>&nbsp;		return null;</b>
+<i>85</i>&nbsp;	}
+<i>86</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-09-12 17:38</div>
+</div>
+</body>
+</html>

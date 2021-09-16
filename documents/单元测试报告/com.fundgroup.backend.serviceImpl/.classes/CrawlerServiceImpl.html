@@ -1,0 +1,215 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: CrawlerServiceImpl</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.fundgroup.backend.serviceImpl</a> ]
+</div>
+
+<h1>Coverage Summary for Class: CrawlerServiceImpl (com.fundgroup.backend.serviceImpl)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CrawlerServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (42/ 42)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.fundgroup.backend.serviceImpl;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.alibaba.fastjson.JSONObject;
+<i>4</i>&nbsp;import com.fundgroup.backend.constant.Constant;
+<i>5</i>&nbsp;import com.fundgroup.backend.dao.FundBasicInfoDao;
+<i>6</i>&nbsp;import com.fundgroup.backend.dao.FundDailyInfoDao;
+<i>7</i>&nbsp;import com.fundgroup.backend.service.CrawlerService;
+<i>8</i>&nbsp;import com.fundgroup.backend.utils.messageUtils.Message;
+<i>9</i>&nbsp;import com.fundgroup.backend.utils.spiderUtils.SpiderUtils;
+<i>10</i>&nbsp;import lombok.extern.log4j.Log4j2;
+<i>11</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>12</i>&nbsp;import org.springframework.http.*;
+<i>13</i>&nbsp;import org.springframework.stereotype.Service;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;import java.time.LocalDate;
+<i>16</i>&nbsp;import java.util.HashMap;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;/*
+<i>19</i>&nbsp;start spider
+<i>20</i>&nbsp;example response
+<i>21</i>&nbsp;{&quot;status&quot;: &quot;ok&quot;, &quot;jobid&quot;: &quot;6487ec79947edab326d6db28a2d86511e8247444&quot;}
+<i>22</i>&nbsp;*/
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;@Service
+<b class="fc"><i>25</i>&nbsp;@Log4j2</b>
+<b class="fc"><i>26</i>&nbsp;public class CrawlerServiceImpl implements CrawlerService{</b>
+<b class="fc"><i>27</i>&nbsp;    SpiderUtils spiderUtils=new SpiderUtils();</b>
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    @Autowired
+<i>30</i>&nbsp;    private FundBasicInfoDao fundBasicInfoDao;
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    @Autowired
+<i>33</i>&nbsp;    private FundDailyInfoDao fundDailyInfoDao;
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    @Override
+<i>36</i>&nbsp;    public Message startSpider(HashMap&lt;String,String&gt; spiderArgument)
+<i>37</i>&nbsp;    {
+<b class="fc"><i>38</i>&nbsp;        String spider_name= spiderArgument.get(Constant.STR_SPIDER);</b>
+<b class="fc"><i>39</i>&nbsp;        String mode= spiderArgument.get(Constant.STR_MODE);</b>
+<b class="fc"><i>40</i>&nbsp;        String fetch_magic=spiderArgument.get(Constant.STR_FETCH_MAGIC);</b>
+<b class="fc"><i>41</i>&nbsp;        String fund_code=spiderArgument.get(Constant.STR_FUND_CODE);</b>
+<b class="fc"><i>42</i>&nbsp;        String cur_time=null;</b>
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;
+<b class="fc"><i>45</i>&nbsp;        if(spider_name.equals(Constant.SPR_JZGS))</b>
+<i>46</i>&nbsp;        {
+<i>47</i>&nbsp;//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd HH:mm:ss&quot;);
+<i>48</i>&nbsp;//            cur_time = LocalDateTime.now().format(formatter);
+<i>49</i>&nbsp;        }
+<i>50</i>&nbsp;
+<b class="fc"><i>51</i>&nbsp;        ResponseEntity&lt;String&gt; response=spiderUtils.postRequest(Constant.SPR_SCHEDULE_URL,spider_name,mode,fetch_magic,fund_code,cur_time,null);</b>
+<b class="fc"><i>52</i>&nbsp;        if(response==null)</b>
+<i>53</i>&nbsp;        {
+<i>54</i>&nbsp;//            return new Message(MessageUtil.ERROR);
+<i>55</i>&nbsp;        }
+<b class="fc"><i>56</i>&nbsp;        HttpStatus statusCode = response.getStatusCode();</b>
+<b class="fc"><i>57</i>&nbsp;        String body= response.getBody();</b>
+<b class="fc"><i>58</i>&nbsp;        System.out.println(&quot;start spider:&quot;+statusCode.value()+&quot; &quot;+body);</b>
+<b class="fc"><i>59</i>&nbsp;        return new Message(statusCode.value(),body);</b>
+<i>60</i>&nbsp;    }
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;    @Override
+<i>63</i>&nbsp;    public Message listJobs()
+<i>64</i>&nbsp;    {
+<b class="fc"><i>65</i>&nbsp;        ResponseEntity&lt;String&gt; response=spiderUtils.getResponse(Constant.SPR_LIST_JOBS_URL);</b>
+<b class="fc"><i>66</i>&nbsp;        if(response==null)</b>
+<i>67</i>&nbsp;        {
+<i>68</i>&nbsp;//            return new Message(MessageUtil.ERROR);
+<i>69</i>&nbsp;        }
+<b class="fc"><i>70</i>&nbsp;        HttpStatus statusCode = response.getStatusCode();</b>
+<b class="fc"><i>71</i>&nbsp;        String body= response.getBody();</b>
+<b class="fc"><i>72</i>&nbsp;        System.out.println(&quot;list jobs:&quot;+statusCode.value()+&quot; &quot;+body);</b>
+<i>73</i>&nbsp;
+<b class="fc"><i>74</i>&nbsp;        JSONObject jsonObject = JSONObject.parseObject(body);</b>
+<b class="fc"><i>75</i>&nbsp;        return new Message(statusCode.value(),jsonObject);</b>
+<i>76</i>&nbsp;    }
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;    @Override
+<i>79</i>&nbsp;    public Message cancelSpider(HashMap&lt;String,String&gt; spiderArgument)
+<i>80</i>&nbsp;    {
+<b class="fc"><i>81</i>&nbsp;        String job= spiderArgument.get(Constant.STR_JOB);</b>
+<b class="fc"><i>82</i>&nbsp;        ResponseEntity&lt;String&gt; response=spiderUtils.postRequest(Constant.SPR_CANCEL_URL,null,null,null,null,null,job);</b>
+<b class="fc"><i>83</i>&nbsp;        if(response==null)</b>
+<i>84</i>&nbsp;        {
+<i>85</i>&nbsp;//            return new Message(MessageUtil.ERROR);
+<i>86</i>&nbsp;        }
+<b class="fc"><i>87</i>&nbsp;        HttpStatus statusCode = response.getStatusCode();</b>
+<b class="fc"><i>88</i>&nbsp;        String body= response.getBody();</b>
+<b class="fc"><i>89</i>&nbsp;        System.out.println(&quot;cancel spider:&quot;+statusCode.value()+&quot; &quot;+body);</b>
+<i>90</i>&nbsp;
+<b class="fc"><i>91</i>&nbsp;        JSONObject jsonObject = JSONObject.parseObject(body);</b>
+<b class="fc"><i>92</i>&nbsp;        return new Message(statusCode.value(),null,jsonObject);</b>
+<i>93</i>&nbsp;    }
+<i>94</i>&nbsp;
+<i>95</i>&nbsp;    /**
+<i>96</i>&nbsp;     * test method TODO:delete
+<i>97</i>&nbsp;     * @param spiderArgument
+<i>98</i>&nbsp;     * @return
+<i>99</i>&nbsp;     */
+<i>100</i>&nbsp;    @Override
+<i>101</i>&nbsp;    public Runnable startSpiderRunnable(HashMap&lt;String,String&gt; spiderArgument)
+<i>102</i>&nbsp;    {
+<b class="fc"><i>103</i>&nbsp;        return ()-&gt;{</b>
+<b class="fc"><i>104</i>&nbsp;            startSpider(spiderArgument);</b>
+<b class="fc"><i>105</i>&nbsp;        };</b>
+<i>106</i>&nbsp;    }
+<i>107</i>&nbsp;
+<i>108</i>&nbsp;    /**
+<i>109</i>&nbsp;     *
+<i>110</i>&nbsp;     * @param maxTry
+<i>111</i>&nbsp;     * @param intervalMinute
+<i>112</i>&nbsp;     * @return update fund number of today info
+<i>113</i>&nbsp;     */
+<i>114</i>&nbsp;    @Override
+<i>115</i>&nbsp;    public Integer tryCrawlerTodayNetValue(Integer maxTry,Integer intervalMinute) {
+<b class="fc"><i>116</i>&nbsp;        Integer num=-1;</b>
+<b class="fc"><i>117</i>&nbsp;        LocalDate today=LocalDate.now();</b>
+<i>118</i>&nbsp;//        while(maxTry!=0)
+<i>119</i>&nbsp;//        {
+<b class="fc"><i>120</i>&nbsp;            Message message=startSpider(Constant.HISTORIC_NET_LATEST_ARGS);</b>
+<b class="fc"><i>121</i>&nbsp;            Integer todayUpdateNum=fundDailyInfoDao.getDailyInfoCountByUpdateDate(today);</b>
+<b class="fc"><i>122</i>&nbsp;            Integer allFundNum=fundBasicInfoDao.getFundNumber();</b>
+<b class="fc"><i>123</i>&nbsp;            --maxTry;</b>
+<b class="fc"><i>124</i>&nbsp;            if(todayUpdateNum&gt;=(allFundNum*0.8))</b>
+<i>125</i>&nbsp;            {
+<b class="fc"><i>126</i>&nbsp;                num=todayUpdateNum;</b>
+<i>127</i>&nbsp;//                break;
+<i>128</i>&nbsp;            }
+<i>129</i>&nbsp;//        }
+<b class="fc"><i>130</i>&nbsp;        return num;</b>
+<i>131</i>&nbsp;    }
+<i>132</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-09-12 17:38</div>
+</div>
+</body>
+</html>

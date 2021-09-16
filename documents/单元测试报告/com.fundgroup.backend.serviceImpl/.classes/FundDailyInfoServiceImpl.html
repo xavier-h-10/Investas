@@ -1,0 +1,160 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: FundDailyInfoServiceImpl</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.fundgroup.backend.serviceImpl</a> ]
+</div>
+
+<h1>Coverage Summary for Class: FundDailyInfoServiceImpl (com.fundgroup.backend.serviceImpl)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FundDailyInfoServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (17/ 17)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.fundgroup.backend.serviceImpl;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.fundgroup.backend.constant.TimeType;
+<i>4</i>&nbsp;import com.fundgroup.backend.dao.FundBasicInfoDao;
+<i>5</i>&nbsp;import com.fundgroup.backend.dao.FundDailyInfoDao;
+<i>6</i>&nbsp;import com.fundgroup.backend.dto.FundDailySimp;
+<i>7</i>&nbsp;import com.fundgroup.backend.entity.FundBasicInfo;
+<i>8</i>&nbsp;import com.fundgroup.backend.entity.FundDailyInfo;
+<i>9</i>&nbsp;import com.fundgroup.backend.service.FundDailyInfoService;
+<i>10</i>&nbsp;import com.fundgroup.backend.utils.DateUtils;
+<i>11</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>12</i>&nbsp;import org.springframework.stereotype.Service;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;import java.time.LocalDate;
+<i>15</i>&nbsp;import java.util.List;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;@Service
+<b class="fc"><i>18</i>&nbsp;public class FundDailyInfoServiceImpl implements FundDailyInfoService {</b>
+<i>19</i>&nbsp;    @Autowired
+<i>20</i>&nbsp;    private FundDailyInfoDao fundDailyInfoDao;
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    @Autowired
+<i>23</i>&nbsp;    private FundBasicInfoDao fundBasicInfoDao;
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    @Override
+<i>26</i>&nbsp;    public List&lt;FundDailySimp&gt; getFundDailyTimeRange(String fundCode, TimeType timeType)
+<i>27</i>&nbsp;    {
+<b class="fc"><i>28</i>&nbsp;        LocalDate today=LocalDate.now();</b>
+<b class="fc"><i>29</i>&nbsp;        LocalDate beginDate= DateUtils.minusDayByTimeType(today,timeType);</b>
+<b class="fc"><i>30</i>&nbsp;        return fundDailyInfoDao.getFundDailyRangeSimp(fundCode,beginDate,today);</b>
+<i>31</i>&nbsp;    }
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    @Override
+<i>34</i>&nbsp;    public List&lt;FundDailyInfo&gt; getFundDailyPage(String fundCode, Integer page, Integer size)
+<i>35</i>&nbsp;    {
+<b class="fc"><i>36</i>&nbsp;        return fundDailyInfoDao.getFundDailyPage(fundCode,page,size);</b>
+<i>37</i>&nbsp;    }
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    @Override
+<i>40</i>&nbsp;    public List&lt;FundDailySimp&gt; getFundDailyDetailFourPage(String fundCode, Integer page, Integer size)
+<i>41</i>&nbsp;    {
+<b class="fc"><i>42</i>&nbsp;        return fundDailyInfoDao.getFundDailyDetailFourByCode(fundCode,page,size);</b>
+<i>43</i>&nbsp;    }
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    @Override
+<i>46</i>&nbsp;    public boolean checkDailyUpdateComplete()
+<i>47</i>&nbsp;    {
+<b class="fc"><i>48</i>&nbsp;        LocalDate today=LocalDate.now();</b>
+<b class="fc"><i>49</i>&nbsp;        Integer todayUpdateNum=fundDailyInfoDao.getDailyInfoCountByUpdateDate(today);</b>
+<b class="fc"><i>50</i>&nbsp;        Integer allFundNum=fundBasicInfoDao.getFundNumber();</b>
+<b class="fc"><i>51</i>&nbsp;        if(todayUpdateNum&gt;=(allFundNum*0.8))</b>
+<i>52</i>&nbsp;        {
+<b class="fc"><i>53</i>&nbsp;            return true;</b>
+<i>54</i>&nbsp;        }
+<b class="fc"><i>55</i>&nbsp;        return false;</b>
+<i>56</i>&nbsp;    }
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;    /**
+<i>59</i>&nbsp;     * if the day is missing, keep it same as its previous day
+<i>60</i>&nbsp;     * @return
+<i>61</i>&nbsp;     */
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;    @Override
+<i>64</i>&nbsp;    public void missingDateInterpolation()
+<i>65</i>&nbsp;    {
+<b class="fc"><i>66</i>&nbsp;        List&lt;FundBasicInfo&gt; fundList=fundBasicInfoDao.getAllFund();</b>
+<i>67</i>&nbsp;
+<b class="fc"><i>68</i>&nbsp;        for(FundBasicInfo fundBasicInfo:fundList)</b>
+<i>69</i>&nbsp;        {
+<b class="fc"><i>70</i>&nbsp;            String fundCode=fundBasicInfo.getFundCode();</b>
+<b class="fc"><i>71</i>&nbsp;        }</b>
+<i>72</i>&nbsp;
+<b class="fc"><i>73</i>&nbsp;        return;</b>
+<i>74</i>&nbsp;    }
+<i>75</i>&nbsp;
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-09-12 17:38</div>
+</div>
+</body>
+</html>

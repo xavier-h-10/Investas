@@ -1,0 +1,154 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: FundPredictionErrorController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.fundgroup.backend.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: FundPredictionErrorController (com.fundgroup.backend.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FundPredictionErrorController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (16/ 16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.fundgroup.backend.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.alibaba.fastjson.JSONObject;
+<i>4</i>&nbsp;import com.fundgroup.backend.dao.HomeRankFundDao;
+<i>5</i>&nbsp;import com.fundgroup.backend.service.FundPredictionErrorService;
+<i>6</i>&nbsp;import com.fundgroup.backend.utils.messageUtils.Message;
+<i>7</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>8</i>&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+<i>9</i>&nbsp;import org.springframework.web.bind.annotation.RequestMethod;
+<i>10</i>&nbsp;import org.springframework.web.bind.annotation.RequestParam;
+<i>11</i>&nbsp;import org.springframework.web.bind.annotation.RestController;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;// TODO: fix access
+<i>14</i>&nbsp;@RestController
+<b class="fc"><i>15</i>&nbsp;public class FundPredictionErrorController {</b>
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;  @Autowired
+<i>18</i>&nbsp;  FundPredictionErrorService fundPredictionErrorService;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;  @Autowired
+<i>21</i>&nbsp;  HomeRankFundDao homeRankFundDao;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;  @RequestMapping(value = &quot;/anyone/predictionError/getErrorMonitorData&quot;, method = RequestMethod.GET)
+<i>24</i>&nbsp;  public Message getErrorMonitorData() {
+<i>25</i>&nbsp;//    接口1： 获得最近的所有误差和数量
+<b class="fc"><i>26</i>&nbsp;    JSONObject jsonObject = new JSONObject();</b>
+<b class="fc"><i>27</i>&nbsp;    jsonObject.put(&quot;src&quot;, fundPredictionErrorService.getErrorMonitorData());</b>
+<i>28</i>&nbsp;
+<b class="fc"><i>29</i>&nbsp;    return new Message(0, &quot;获取监控数据成功&quot;, jsonObject);</b>
+<i>30</i>&nbsp;  }
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;  //  接口2，3：获得误差最小和最大的前15名
+<i>33</i>&nbsp;  @RequestMapping(value = &quot;/anyone/predictionError/getErrorMax&quot;, method = RequestMethod.GET)
+<i>34</i>&nbsp;  public Message getErrorMax() {
+<i>35</i>&nbsp;
+<b class="fc"><i>36</i>&nbsp;    JSONObject jsonObject = new JSONObject();</b>
+<b class="fc"><i>37</i>&nbsp;    jsonObject.put(&quot;src&quot;, fundPredictionErrorService.getErrorMax());</b>
+<i>38</i>&nbsp;
+<b class="fc"><i>39</i>&nbsp;    return new Message(0, &quot;获取数据成功&quot;, jsonObject);</b>
+<i>40</i>&nbsp;  }
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;  @RequestMapping(value = &quot;/anyone/predictionError/getErrorMin&quot;, method = RequestMethod.GET)
+<i>43</i>&nbsp;  public Message getErrorMin() {
+<i>44</i>&nbsp;
+<b class="fc"><i>45</i>&nbsp;    JSONObject jsonObject = new JSONObject();</b>
+<b class="fc"><i>46</i>&nbsp;    jsonObject.put(&quot;src&quot;, fundPredictionErrorService.getErrorMin());</b>
+<i>47</i>&nbsp;
+<b class="fc"><i>48</i>&nbsp;    return new Message(0, &quot;获取数据成功&quot;, jsonObject);</b>
+<i>49</i>&nbsp;  }
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;  //  接口4： 给定一个fund code得到最近的误差和平均误差，画图
+<i>52</i>&nbsp;  @RequestMapping(value = &quot;/anyone/predictionError/getErrorByCode&quot;, method = RequestMethod.GET)
+<i>53</i>&nbsp;  public Message getErrorByCode(@RequestParam(&quot;fundCode&quot;) String fundCode) {
+<i>54</i>&nbsp;
+<b class="fc"><i>55</i>&nbsp;    JSONObject jsonObject = new JSONObject();</b>
+<b class="fc"><i>56</i>&nbsp;    jsonObject.put(&quot;src&quot;, fundPredictionErrorService.getErrorByCode(fundCode));</b>
+<i>57</i>&nbsp;
+<b class="fc"><i>58</i>&nbsp;    return new Message(0, &quot;获取基金误差数据成功&quot;, jsonObject);</b>
+<i>59</i>&nbsp;  }
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;  @RequestMapping(value = &quot;/anyone/predictionFundView/getPredictionFrontendView&quot;, method = RequestMethod.GET)
+<i>62</i>&nbsp;  public Message getPredictionFrontendView(@RequestParam(&quot;fundCode&quot;) String fundCode) {
+<i>63</i>&nbsp;
+<b class="fc"><i>64</i>&nbsp;    JSONObject jsonObject = new JSONObject();</b>
+<b class="fc"><i>65</i>&nbsp;    jsonObject.put(&quot;src&quot;, homeRankFundDao.getPredictionViewByFundCode(fundCode));</b>
+<i>66</i>&nbsp;
+<b class="fc"><i>67</i>&nbsp;    return new Message(0, &quot;获取基金前端预测视图成功&quot;, jsonObject);</b>
+<i>68</i>&nbsp;  }
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-09-12 17:38</div>
+</div>
+</body>
+</html>

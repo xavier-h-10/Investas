@@ -1,0 +1,146 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: StockDailyInfoDaoImpl</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.fundgroup.backend.daoImpl</a> ]
+</div>
+
+<h1>Coverage Summary for Class: StockDailyInfoDaoImpl (com.fundgroup.backend.daoImpl)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StockDailyInfoDaoImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">StockDailyInfoDaoImpl$$EnhancerBySpringCGLIB$$5118abe8</td>
+  </tr>
+  <tr>
+    <td class="name">StockDailyInfoDaoImpl$$EnhancerBySpringCGLIB$$5118abe8$$FastClassBySpringCGLIB$$c331db06</td>
+  </tr>
+  <tr>
+    <td class="name">StockDailyInfoDaoImpl$$FastClassBySpringCGLIB$$31a00f0a</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.fundgroup.backend.daoImpl;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.fundgroup.backend.dao.StockDailyInfoDao;
+<i>4</i>&nbsp;import com.fundgroup.backend.dto.StockDailySimp;
+<i>5</i>&nbsp;import com.fundgroup.backend.entity.StockDailyInfo;
+<i>6</i>&nbsp;import com.fundgroup.backend.repository.StockDailyInfoRepository;
+<i>7</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>8</i>&nbsp;import org.springframework.stereotype.Repository;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import java.time.LocalDate;
+<i>11</i>&nbsp;import java.util.List;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;@Repository
+<b class="fc"><i>14</i>&nbsp;public class StockDailyInfoDaoImpl implements StockDailyInfoDao {</b>
+<i>15</i>&nbsp;    @Autowired
+<i>16</i>&nbsp;    private StockDailyInfoRepository stockDailyInfoRepository;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    @Override
+<i>19</i>&nbsp;    public List&lt;StockDailySimp&gt; getAllByStockId(String stockId)
+<i>20</i>&nbsp;    {
+<b class="fc"><i>21</i>&nbsp;        return stockDailyInfoRepository.getAllByStockId(stockId);</b>
+<i>22</i>&nbsp;    }
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    @Override
+<i>25</i>&nbsp;    public List&lt;StockDailySimp&gt; getStockDailyRangeSimp(String stockId, LocalDate beginDate, LocalDate endDate)
+<i>26</i>&nbsp;    {
+<b class="fc"><i>27</i>&nbsp;        return stockDailyInfoRepository.getStockDailyRangeSimp(stockId,beginDate,endDate);</b>
+<i>28</i>&nbsp;    }
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    @Override
+<i>31</i>&nbsp;    public StockDailyInfo getStockDailyByCodeDate(String stockId, LocalDate date)
+<i>32</i>&nbsp;    {
+<b class="fc"><i>33</i>&nbsp;        return stockDailyInfoRepository.getStockDailyByCodeDate(stockId,date);</b>
+<i>34</i>&nbsp;    }
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    @Override
+<i>37</i>&nbsp;    public StockDailyInfo findFirstByStockIdOrderByUpdateDate(String stockId)
+<i>38</i>&nbsp;    {
+<b class="fc"><i>39</i>&nbsp;        return stockDailyInfoRepository.findFirstByStockIdOrderByUpdateDate(stockId);</b>
+<i>40</i>&nbsp;    }
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    @Override
+<i>43</i>&nbsp;    public void saveStockDailyInfo(StockDailyInfo stockDailyInfo)
+<i>44</i>&nbsp;    {
+<b class="fc"><i>45</i>&nbsp;        stockDailyInfoRepository.save(stockDailyInfo);</b>
+<b class="fc"><i>46</i>&nbsp;    }</b>
+<i>47</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-09-12 17:38</div>
+</div>
+</body>
+</html>

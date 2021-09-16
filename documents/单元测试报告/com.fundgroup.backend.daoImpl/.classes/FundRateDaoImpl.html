@@ -1,0 +1,188 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: FundRateDaoImpl</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.fundgroup.backend.daoImpl</a> ]
+</div>
+
+<h1>Coverage Summary for Class: FundRateDaoImpl (com.fundgroup.backend.daoImpl)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FundRateDaoImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (29/ 29)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">FundRateDaoImpl$$EnhancerBySpringCGLIB$$c7d4142c</td>
+  </tr>
+  <tr>
+    <td class="name">FundRateDaoImpl$$EnhancerBySpringCGLIB$$c7d4142c$$FastClassBySpringCGLIB$$3653a5b</td>
+  </tr>
+  <tr>
+    <td class="name">FundRateDaoImpl$$FastClassBySpringCGLIB$$771df5f6</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (29/ 29)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.fundgroup.backend.daoImpl;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.fundgroup.backend.dao.FundRateDao;
+<i>4</i>&nbsp;import com.fundgroup.backend.dto.FundRateRank;
+<i>5</i>&nbsp;import com.fundgroup.backend.entity.FundRate;
+<i>6</i>&nbsp;import com.fundgroup.backend.dto.FundRateRecent;
+<i>7</i>&nbsp;import com.fundgroup.backend.repository.FundRateRepository;
+<i>8</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>9</i>&nbsp;import org.springframework.jdbc.core.JdbcTemplate;
+<i>10</i>&nbsp;import org.springframework.stereotype.Repository;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;import java.time.LocalDate;
+<i>13</i>&nbsp;import java.util.ArrayList;
+<i>14</i>&nbsp;import java.util.List;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;@Repository
+<b class="fc"><i>17</i>&nbsp;public class FundRateDaoImpl implements FundRateDao {</b>
+<i>18</i>&nbsp;    @Autowired
+<i>19</i>&nbsp;    private FundRateRepository fundRateRepository;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    @Override
+<i>22</i>&nbsp;    public void updateFundRate(List&lt;FundRate&gt; fundRateList)
+<i>23</i>&nbsp;    {
+<b class="fc"><i>24</i>&nbsp;        fundRateRepository.saveAll(fundRateList);</b>
+<b class="fc"><i>25</i>&nbsp;    }</b>
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    @Override
+<i>28</i>&nbsp;    public void updateFundRate(FundRate fundRate)
+<i>29</i>&nbsp;    {
+<b class="fc"><i>30</i>&nbsp;        fundRateRepository.save(fundRate);</b>
+<b class="fc"><i>31</i>&nbsp;    }</b>
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    @Override
+<i>34</i>&nbsp;    public FundRateRecent getFundRecRate(String fundCode)
+<i>35</i>&nbsp;    {
+<b class="fc"><i>36</i>&nbsp;        return fundRateRepository.getRateInOneYear(fundCode);</b>
+<i>37</i>&nbsp;    }
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    @Override
+<i>40</i>&nbsp;    public FundRate getFundRateByCode(String fundCode)
+<i>41</i>&nbsp;    {
+<b class="fc"><i>42</i>&nbsp;        return fundRateRepository.getFundRateByFundCode(fundCode);</b>
+<i>43</i>&nbsp;    }
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    @Override
+<i>46</i>&nbsp;    public List&lt;FundRate&gt; getTopFundRateByMonth() {
+<b class="fc"><i>47</i>&nbsp;        return fundRateRepository.getTopFundRateByMonth();</b>
+<i>48</i>&nbsp;    }
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    @Override
+<i>51</i>&nbsp;    public List&lt;FundRate&gt; getTopFundRateByYear() {
+<b class="fc"><i>52</i>&nbsp;        return fundRateRepository.getTopFundRateByYear();</b>
+<i>53</i>&nbsp;    }
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    @Override
+<i>56</i>&nbsp;    public List&lt;FundRateRank&gt; getAllFundRateRank()
+<i>57</i>&nbsp;    {
+<b class="fc"><i>58</i>&nbsp;        List&lt;FundRateRank&gt; fundRateRanks=new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>59</i>&nbsp;        List&lt;Object[]&gt; objects = fundRateRepository.getAllFundRateRank();</b>
+<b class="fc"><i>60</i>&nbsp;        for(Object[] objectList:objects)</b>
+<i>61</i>&nbsp;        {
+<i>62</i>&nbsp;//            if(objectList==null)
+<i>63</i>&nbsp;//                continue;
+<b class="fc"><i>64</i>&nbsp;            String fundCode=objectList[0].toString();</b>
+<b class="fc"><i>65</i>&nbsp;            Integer lastOneDay= Integer.valueOf(objectList[1].toString());</b>
+<b class="fc"><i>66</i>&nbsp;            Integer lastOneWeek= Integer.valueOf(objectList[2].toString());</b>
+<b class="fc"><i>67</i>&nbsp;            Integer lastOneMonth= Integer.valueOf(objectList[3].toString());</b>
+<b class="fc"><i>68</i>&nbsp;            Integer lastThreeMonths= Integer.valueOf(objectList[4].toString());</b>
+<b class="fc"><i>69</i>&nbsp;            Integer lastSixMonths= Integer.valueOf(objectList[5].toString());</b>
+<b class="fc"><i>70</i>&nbsp;            Integer lastOneYear= Integer.valueOf(objectList[6].toString());</b>
+<b class="fc"><i>71</i>&nbsp;            Integer lastTwoYears= Integer.valueOf(objectList[7].toString());</b>
+<b class="fc"><i>72</i>&nbsp;            Integer lastThreeYears= Integer.valueOf(objectList[8].toString());</b>
+<b class="fc"><i>73</i>&nbsp;            Integer lastFiveYears= Integer.valueOf(objectList[9].toString());</b>
+<b class="fc"><i>74</i>&nbsp;            Integer fromBeginning= Integer.valueOf(objectList[10].toString());</b>
+<b class="fc"><i>75</i>&nbsp;            Integer fromThisYear= Integer.valueOf(objectList[11].toString());</b>
+<i>76</i>&nbsp;
+<b class="fc"><i>77</i>&nbsp;            FundRateRank fundRateRank=new FundRateRank(fundCode,lastOneDay,lastOneWeek,lastOneMonth,lastThreeMonths,</b>
+<i>78</i>&nbsp;                    lastSixMonths,lastOneYear,lastTwoYears,lastThreeYears,lastFiveYears,fromBeginning,fromThisYear);
+<b class="fc"><i>79</i>&nbsp;            fundRateRanks.add(fundRateRank);</b>
+<b class="fc"><i>80</i>&nbsp;        }</b>
+<b class="fc"><i>81</i>&nbsp;        return fundRateRanks;</b>
+<i>82</i>&nbsp;    }
+<i>83</i>&nbsp;
+<i>84</i>&nbsp;    @Override
+<i>85</i>&nbsp;    public Integer getDailyInfoCountByUpdateDate(LocalDate date)
+<i>86</i>&nbsp;    {
+<b class="fc"><i>87</i>&nbsp;        return fundRateRepository.getDailyInfoCountByUpdateDate(date);</b>
+<i>88</i>&nbsp;    }
+<i>89</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-09-12 17:38</div>
+</div>
+</body>
+</html>

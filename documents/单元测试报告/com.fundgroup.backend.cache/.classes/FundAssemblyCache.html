@@ -1,0 +1,345 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: FundAssemblyCache</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.fundgroup.backend.cache</a> ]
+</div>
+
+<h1>Coverage Summary for Class: FundAssemblyCache (com.fundgroup.backend.cache)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FundAssemblyCache</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/ 12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (116/ 116)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">FundAssemblyCache$MockitoMock$1123028746</td>
+  </tr>
+  <tr>
+    <td class="name">FundAssemblyCache$MockitoMock$1123028746$auxiliary$1bm7Cmhr</td>
+  </tr>
+  <tr>
+    <td class="name">FundAssemblyCache$MockitoMock$1123028746$auxiliary$2n7H0Ns4</td>
+  </tr>
+  <tr>
+    <td class="name">FundAssemblyCache$MockitoMock$1123028746$auxiliary$eDwThxDh</td>
+  </tr>
+  <tr>
+    <td class="name">FundAssemblyCache$MockitoMock$1123028746$auxiliary$Gn5N4VIn</td>
+  </tr>
+  <tr>
+    <td class="name">FundAssemblyCache$MockitoMock$1123028746$auxiliary$KItKx6sF</td>
+  </tr>
+  <tr>
+    <td class="name">FundAssemblyCache$MockitoMock$1123028746$auxiliary$KYWUZJBV</td>
+  </tr>
+  <tr>
+    <td class="name">FundAssemblyCache$MockitoMock$1123028746$auxiliary$MR7raKfN</td>
+  </tr>
+  <tr>
+    <td class="name">FundAssemblyCache$MockitoMock$1123028746$auxiliary$qgaH6rw3</td>
+  </tr>
+  <tr>
+    <td class="name">FundAssemblyCache$MockitoMock$1123028746$auxiliary$rVg0Lr4D</td>
+  </tr>
+  <tr>
+    <td class="name">FundAssemblyCache$MockitoMock$1123028746$auxiliary$WjlKyAGP</td>
+  </tr>
+  <tr>
+    <td class="name">FundAssemblyCache$MockitoMock$1123028746$auxiliary$Woyk1lwv</td>
+  </tr>
+  <tr>
+    <td class="name">FundAssemblyCache$MockitoMock$1123028746$auxiliary$Z4l2jjQr</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/ 12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (116/ 116)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.fundgroup.backend.cache;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.fundgroup.backend.constant.TimeType;
+<i>4</i>&nbsp;import com.fundgroup.backend.dao.FundBasicInfoDao;
+<i>5</i>&nbsp;import com.fundgroup.backend.dao.FundDailyInfoDao;
+<i>6</i>&nbsp;import com.fundgroup.backend.dao.FundRateDao;
+<i>7</i>&nbsp;import com.fundgroup.backend.dao.HomeRankFundDao;
+<i>8</i>&nbsp;import com.fundgroup.backend.dto.*;
+<i>9</i>&nbsp;import com.fundgroup.backend.entity.FundBasicInfo;
+<i>10</i>&nbsp;import com.fundgroup.backend.entity.FundDailyInfo;
+<i>11</i>&nbsp;import com.fundgroup.backend.entity.FundRate;
+<i>12</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>13</i>&nbsp;import org.springframework.data.domain.PageRequest;
+<i>14</i>&nbsp;import org.springframework.data.repository.query.Param;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;import javax.annotation.PostConstruct;
+<i>17</i>&nbsp;import java.awt.print.Pageable;
+<i>18</i>&nbsp;import java.util.HashMap;
+<i>19</i>&nbsp;import java.util.List;
+<i>20</i>&nbsp;import java.util.Map;
+<i>21</i>&nbsp;
+<b class="fc"><i>22</i>&nbsp;public class FundAssemblyCache {</b>
+<b class="fc"><i>23</i>&nbsp;    private HashMap&lt;String, FundAssembly&gt; data=new HashMap&lt;&gt;();</b>
+<i>24</i>&nbsp;    private FundRateRank fundRateTotalCount;
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    @Autowired
+<i>27</i>&nbsp;    private FundBasicInfoDao fundBasicInfoDao;
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    @Autowired
+<i>30</i>&nbsp;    private FundRateDao fundRateDao;
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    @Autowired
+<i>33</i>&nbsp;    private FundDailyInfoDao fundDailyInfoDao;
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    @Autowired
+<i>36</i>&nbsp;    private HomeRankFundDao homeRankFundDao;
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    private void loadFromDatabase(HashMap&lt;String, FundAssembly&gt; data)
+<i>39</i>&nbsp;    {
+<b class="fc"><i>40</i>&nbsp;        List&lt;FundBasicInfo&gt; fundBasicInfos=fundBasicInfoDao.getAllFund();</b>
+<b class="fc"><i>41</i>&nbsp;        System.out.println(fundBasicInfos.size());</b>
+<b class="fc"><i>42</i>&nbsp;        for(FundBasicInfo fundBasicInfo : fundBasicInfos)</b>
+<i>43</i>&nbsp;        {
+<b class="fc"><i>44</i>&nbsp;            if (data.size() % 1000 == 0) {</b>
+<b class="fc"><i>45</i>&nbsp;                System.out.println(data.size());</b>
+<i>46</i>&nbsp;            }
+<b class="fc"><i>47</i>&nbsp;            FundAssembly fundAssembly =new FundAssembly(fundBasicInfo.getFundCode());</b>
+<b class="fc"><i>48</i>&nbsp;            fundAssembly.setFundName(fundBasicInfo.getFundName());</b>
+<b class="fc"><i>49</i>&nbsp;            fundAssembly.setFundType(fundBasicInfo.getFundType());</b>
+<b class="fc"><i>50</i>&nbsp;            fundAssembly.setAssetSize(fundBasicInfo.getAssetSize());</b>
+<b class="fc"><i>51</i>&nbsp;            fundAssembly.setFundEstablishDate(fundBasicInfo.getFundEstablishDate());</b>
+<b class="fc"><i>52</i>&nbsp;            fundAssembly.setFundRating(fundBasicInfo.getFundRating());</b>
+<i>53</i>&nbsp;            //load fund rate
+<b class="fc"><i>54</i>&nbsp;            FundRate fundRate=fundRateDao.getFundRateByCode(fundBasicInfo.getFundCode());</b>
+<b class="fc"><i>55</i>&nbsp;            if(fundRate!=null)</b>
+<i>56</i>&nbsp;            {
+<b class="fc"><i>57</i>&nbsp;                fundAssembly.setLastOneDayRate(fundRate.getLastOneDay());</b>
+<b class="fc"><i>58</i>&nbsp;                fundAssembly.setLastOneWeekRate(fundRate.getLastOneWeek());</b>
+<b class="fc"><i>59</i>&nbsp;                fundAssembly.setLastOneMonthRate(fundRate.getLastOneMonth());</b>
+<b class="fc"><i>60</i>&nbsp;                fundAssembly.setLastThreeMonthRate(fundRate.getLastThreeMonths());</b>
+<b class="fc"><i>61</i>&nbsp;                fundAssembly.setLastSixMonthRate(fundRate.getLastSixMonths());</b>
+<b class="fc"><i>62</i>&nbsp;                fundAssembly.setLastOneYearRate(fundRate.getLastOneYear());</b>
+<b class="fc"><i>63</i>&nbsp;                fundAssembly.setFromBeginningRate(fundRate.getFromBeginning());</b>
+<i>64</i>&nbsp;            }
+<i>65</i>&nbsp;            //load daily info
+<b class="fc"><i>66</i>&nbsp;            List&lt;FundDailySimp&gt; fundDailySimp=fundDailyInfoDao.getFundDailyDetailFourByCode(fundBasicInfo.getFundCode(),0,1);</b>
+<b class="fc"><i>67</i>&nbsp;            if(fundDailySimp!=null&amp;&amp;fundDailySimp.size()==1)</b>
+<i>68</i>&nbsp;            {
+<b class="fc"><i>69</i>&nbsp;                fundAssembly.setNAV(fundDailySimp.get(0).getNAV());</b>
+<b class="fc"><i>70</i>&nbsp;                fundAssembly.setAccumulativeNAV(fundDailySimp.get(0).getAccumulateNAV());</b>
+<b class="fc"><i>71</i>&nbsp;                fundAssembly.setUpdateDate(fundDailySimp.get(0).getUpdateDate());</b>
+<i>72</i>&nbsp;            }
+<i>73</i>&nbsp;            //load prediction
+<b class="fc"><i>74</i>&nbsp;            FundPredictionView fundPredictionView= homeRankFundDao.getPredictionViewByFundCode(fundBasicInfo.getFundCode());</b>
+<b class="fc"><i>75</i>&nbsp;            fundAssembly.setFundPredictionView(fundPredictionView);</b>
+<i>76</i>&nbsp;
+<b class="fc"><i>77</i>&nbsp;            data.put(fundAssembly.getFundCode(), fundAssembly);</b>
+<b class="fc"><i>78</i>&nbsp;        }</b>
+<b class="fc"><i>79</i>&nbsp;        List&lt;FundRateRank&gt; fundRateRanks=fundRateDao.getAllFundRateRank();</b>
+<b class="fc"><i>80</i>&nbsp;        for(FundRateRank fundRateRank:fundRateRanks)</b>
+<i>81</i>&nbsp;        {
+<b class="fc"><i>82</i>&nbsp;            String fundCode=fundRateRank.getFundCode();</b>
+<b class="fc"><i>83</i>&nbsp;            if(data.containsKey(fundCode))</b>
+<i>84</i>&nbsp;            {
+<b class="fc"><i>85</i>&nbsp;                FundAssembly fundAssembly=data.get(fundCode);</b>
+<b class="fc"><i>86</i>&nbsp;                fundAssembly.setLastOneDayRank(fundRateRank.getLastOneDay());</b>
+<b class="fc"><i>87</i>&nbsp;                fundAssembly.setLastOneWeekRank(fundRateRank.getLastOneWeek());</b>
+<b class="fc"><i>88</i>&nbsp;                fundAssembly.setLastOneMonthRank(fundRateRank.getLastOneMonth());</b>
+<b class="fc"><i>89</i>&nbsp;                fundAssembly.setLastThreeMonthRank(fundRateRank.getLastThreeMonths());</b>
+<b class="fc"><i>90</i>&nbsp;                fundAssembly.setLastSixMonthRank(fundRateRank.getLastSixMonths());</b>
+<b class="fc"><i>91</i>&nbsp;                fundAssembly.setLastOneYearRank(fundRateRank.getLastOneYear());</b>
+<b class="fc"><i>92</i>&nbsp;                fundAssembly.setLastTwoYearsRank(fundRateRank.getLastTwoYears());</b>
+<b class="fc"><i>93</i>&nbsp;                fundAssembly.setLastThreeYearsRank(fundRateRank.getLastThreeYears());</b>
+<b class="fc"><i>94</i>&nbsp;                fundAssembly.setLastFiveYearsRank(fundRateRank.getLastFiveYears());</b>
+<b class="fc"><i>95</i>&nbsp;                fundAssembly.setFromBeginningRank(fundRateRank.getFromBeginning());</b>
+<b class="fc"><i>96</i>&nbsp;                fundAssembly.setFromThisYearRank(fundRateRank.getFromThisYear());</b>
+<i>97</i>&nbsp;            }
+<b class="fc"><i>98</i>&nbsp;        }</b>
+<i>99</i>&nbsp;
+<i>100</i>&nbsp;
+<b class="fc"><i>101</i>&nbsp;        Integer lastOneDay = fundBasicInfoDao.countFundNumTimeRange(TimeType.LAST_ONE_DAY);;</b>
+<b class="fc"><i>102</i>&nbsp;        Integer lastOneWeek = fundBasicInfoDao.countFundNumTimeRange(TimeType.LAST_ONE_WEEK);</b>
+<b class="fc"><i>103</i>&nbsp;        Integer lastOneMonth= fundBasicInfoDao.countFundNumTimeRange(TimeType.LAST_ONE_MONTH);</b>
+<b class="fc"><i>104</i>&nbsp;        Integer lastThreeMonths = fundBasicInfoDao.countFundNumTimeRange(TimeType.LAST_THREE_MONTHS);</b>
+<b class="fc"><i>105</i>&nbsp;        Integer lastSixMonths = fundBasicInfoDao.countFundNumTimeRange(TimeType.LAST_SIX_MONTHS);</b>
+<b class="fc"><i>106</i>&nbsp;        Integer lastOneYear = fundBasicInfoDao.countFundNumTimeRange(TimeType.LAST_ONE_YEAR);</b>
+<b class="fc"><i>107</i>&nbsp;        Integer lastTwoYears = fundBasicInfoDao.countFundNumTimeRange(TimeType.LAST_TWO_YEARS);</b>
+<b class="fc"><i>108</i>&nbsp;        Integer lastThreeYears= fundBasicInfoDao.countFundNumTimeRange(TimeType.LAST_THREE_YEARS);</b>
+<b class="fc"><i>109</i>&nbsp;        Integer lastFiveYears= fundBasicInfoDao.countFundNumTimeRange(TimeType.LAST_FIVE_YEARS);</b>
+<b class="fc"><i>110</i>&nbsp;        Integer fromBeginning= fundBasicInfoDao.countFundNumTimeRange(TimeType.FROM_BEGINNING);</b>
+<b class="fc"><i>111</i>&nbsp;        Integer fromThisYear= fundBasicInfoDao.countFundNumTimeRange(TimeType.FROM_THIS_YEAR);</b>
+<b class="fc"><i>112</i>&nbsp;        fundRateTotalCount=new FundRateRank(null,lastOneDay,lastOneWeek,lastOneMonth,lastThreeMonths,lastSixMonths,</b>
+<i>113</i>&nbsp;                lastOneYear,lastTwoYears,lastThreeYears,lastFiveYears,fromBeginning,fromThisYear);
+<i>114</i>&nbsp;
+<b class="fc"><i>115</i>&nbsp;        System.out.println(data.size());</b>
+<b class="fc"><i>116</i>&nbsp;    }</b>
+<i>117</i>&nbsp;
+<i>118</i>&nbsp;   @PostConstruct
+<i>119</i>&nbsp;   public void loadData()
+<i>120</i>&nbsp;   {
+<b class="fc"><i>121</i>&nbsp;       loadFromDatabase(data);</b>
+<b class="fc"><i>122</i>&nbsp;   }</b>
+<i>123</i>&nbsp;
+<i>124</i>&nbsp;    public void updateFundDailyInfo()
+<i>125</i>&nbsp;    {
+<b class="fc"><i>126</i>&nbsp;        for(Map.Entry&lt;String, FundAssembly&gt; entry : data.entrySet())</b>
+<i>127</i>&nbsp;        {
+<b class="fc"><i>128</i>&nbsp;            String fundCode=entry.getKey();</b>
+<b class="fc"><i>129</i>&nbsp;            FundAssembly fundAssembly=entry.getValue();</b>
+<b class="fc"><i>130</i>&nbsp;            List&lt;FundDailySimp&gt; fundDailySimp=fundDailyInfoDao.getFundDailyDetailFourByCode(fundCode,0,1);</b>
+<b class="fc"><i>131</i>&nbsp;            if(fundDailySimp!=null&amp;&amp;fundDailySimp.size()==1)</b>
+<i>132</i>&nbsp;            {
+<b class="fc"><i>133</i>&nbsp;                fundAssembly.setNAV(fundDailySimp.get(0).getNAV());</b>
+<b class="fc"><i>134</i>&nbsp;                fundAssembly.setAccumulativeNAV(fundDailySimp.get(0).getAccumulateNAV());</b>
+<b class="fc"><i>135</i>&nbsp;                fundAssembly.setUpdateDate(fundDailySimp.get(0).getUpdateDate());</b>
+<i>136</i>&nbsp;            }
+<b class="fc"><i>137</i>&nbsp;        }</b>
+<b class="fc"><i>138</i>&nbsp;    }</b>
+<i>139</i>&nbsp;
+<i>140</i>&nbsp;    public void updateFundRate()
+<i>141</i>&nbsp;    {
+<b class="fc"><i>142</i>&nbsp;        for(Map.Entry&lt;String, FundAssembly&gt; entry : data.entrySet())</b>
+<i>143</i>&nbsp;        {
+<b class="fc"><i>144</i>&nbsp;            String fundCode = entry.getKey();</b>
+<b class="fc"><i>145</i>&nbsp;            FundAssembly fundAssembly = entry.getValue();</b>
+<b class="fc"><i>146</i>&nbsp;            FundRate fundRate=fundRateDao.getFundRateByCode(fundCode);</b>
+<b class="fc"><i>147</i>&nbsp;            if(fundRate!=null)</b>
+<i>148</i>&nbsp;            {
+<b class="fc"><i>149</i>&nbsp;                fundAssembly.setLastOneDayRate(fundRate.getLastOneDay());</b>
+<b class="fc"><i>150</i>&nbsp;                fundAssembly.setLastOneWeekRate(fundRate.getLastOneWeek());</b>
+<b class="fc"><i>151</i>&nbsp;                fundAssembly.setLastOneMonthRate(fundRate.getLastOneMonth());</b>
+<b class="fc"><i>152</i>&nbsp;                fundAssembly.setLastThreeMonthRate(fundRate.getLastThreeMonths());</b>
+<b class="fc"><i>153</i>&nbsp;                fundAssembly.setLastSixMonthRate(fundRate.getLastSixMonths());</b>
+<b class="fc"><i>154</i>&nbsp;                fundAssembly.setLastOneYearRate(fundRate.getLastOneYear());</b>
+<i>155</i>&nbsp;            }
+<b class="fc"><i>156</i>&nbsp;        }</b>
+<b class="fc"><i>157</i>&nbsp;    }</b>
+<i>158</i>&nbsp;
+<i>159</i>&nbsp;    public void updateFundPrediction() {
+<b class="fc"><i>160</i>&nbsp;        for (Map.Entry&lt;String, FundAssembly&gt; entry : data.entrySet())</b>
+<i>161</i>&nbsp;        {
+<b class="fc"><i>162</i>&nbsp;            String fundCode = entry.getKey();</b>
+<b class="fc"><i>163</i>&nbsp;            FundAssembly fundAssembly = entry.getValue();</b>
+<i>164</i>&nbsp;            //load prediction
+<b class="fc"><i>165</i>&nbsp;            FundPredictionView fundPredictionView= homeRankFundDao.getPredictionViewByFundCode(fundCode);</b>
+<b class="fc"><i>166</i>&nbsp;            fundAssembly.setFundPredictionView(fundPredictionView);</b>
+<i>167</i>&nbsp;
+<b class="fc"><i>168</i>&nbsp;        }</b>
+<b class="fc"><i>169</i>&nbsp;    }</b>
+<i>170</i>&nbsp;
+<i>171</i>&nbsp;    public void updateFundRank(){
+<b class="fc"><i>172</i>&nbsp;        Integer lastOneDay = fundBasicInfoDao.countFundNumTimeRange(TimeType.LAST_ONE_DAY);;</b>
+<b class="fc"><i>173</i>&nbsp;        Integer lastOneWeek = fundBasicInfoDao.countFundNumTimeRange(TimeType.LAST_ONE_WEEK);</b>
+<b class="fc"><i>174</i>&nbsp;        Integer lastOneMonth= fundBasicInfoDao.countFundNumTimeRange(TimeType.LAST_ONE_MONTH);</b>
+<b class="fc"><i>175</i>&nbsp;        Integer lastThreeMonths = fundBasicInfoDao.countFundNumTimeRange(TimeType.LAST_THREE_MONTHS);</b>
+<b class="fc"><i>176</i>&nbsp;        Integer lastSixMonths = fundBasicInfoDao.countFundNumTimeRange(TimeType.LAST_SIX_MONTHS);</b>
+<b class="fc"><i>177</i>&nbsp;        Integer lastOneYear = fundBasicInfoDao.countFundNumTimeRange(TimeType.LAST_ONE_YEAR);</b>
+<b class="fc"><i>178</i>&nbsp;        Integer lastTwoYears = fundBasicInfoDao.countFundNumTimeRange(TimeType.LAST_TWO_YEARS);</b>
+<b class="fc"><i>179</i>&nbsp;        Integer lastThreeYears= fundBasicInfoDao.countFundNumTimeRange(TimeType.LAST_THREE_YEARS);</b>
+<b class="fc"><i>180</i>&nbsp;        Integer lastFiveYears= fundBasicInfoDao.countFundNumTimeRange(TimeType.LAST_FIVE_YEARS);</b>
+<b class="fc"><i>181</i>&nbsp;        Integer fromBeginning= fundBasicInfoDao.countFundNumTimeRange(TimeType.FROM_BEGINNING);</b>
+<b class="fc"><i>182</i>&nbsp;        Integer fromThisYear= fundBasicInfoDao.countFundNumTimeRange(TimeType.FROM_THIS_YEAR);</b>
+<b class="fc"><i>183</i>&nbsp;        fundRateTotalCount=new FundRateRank(null,lastOneDay,lastOneWeek,lastOneMonth,lastThreeMonths,lastSixMonths,</b>
+<i>184</i>&nbsp;                lastOneYear,lastTwoYears,lastThreeYears,lastFiveYears,fromBeginning,fromThisYear);
+<b class="fc"><i>185</i>&nbsp;    }</b>
+<i>186</i>&nbsp;
+<i>187</i>&nbsp;    public FundAssembly getFundAssembly(String fundCode)
+<i>188</i>&nbsp;    {
+<b class="fc"><i>189</i>&nbsp;        return data.get(fundCode);</b>
+<i>190</i>&nbsp;    }
+<i>191</i>&nbsp;
+<i>192</i>&nbsp;    public FundArchive getFundArchiveByFundCode(String fundCode)
+<i>193</i>&nbsp;    {
+<b class="fc"><i>194</i>&nbsp;        FundAssembly fundAssembly=data.get(fundCode);</b>
+<b class="fc"><i>195</i>&nbsp;        return new FundArchive(fundAssembly.getFundCode(),fundAssembly.getAssetSize(),fundAssembly.getFundEstablishDate());</b>
+<i>196</i>&nbsp;    }
+<i>197</i>&nbsp;
+<i>198</i>&nbsp;    public FundPredictionView getFundPredictionView(String fundCode){
+<b class="fc"><i>199</i>&nbsp;        FundAssembly fundAssembly=data.get(fundCode);</b>
+<i>200</i>&nbsp;//        if(fundAssembly==null)
+<i>201</i>&nbsp;//            return null;
+<b class="fc"><i>202</i>&nbsp;        return fundAssembly.getFundPredictionView();</b>
+<i>203</i>&nbsp;    }
+<i>204</i>&nbsp;
+<i>205</i>&nbsp;    public FundRateRank getFundRateTotalCount()
+<i>206</i>&nbsp;    {
+<b class="fc"><i>207</i>&nbsp;        return fundRateTotalCount;</b>
+<i>208</i>&nbsp;    }
+<i>209</i>&nbsp;
+<i>210</i>&nbsp;    public FundRateRank getFundRateRankHalfByCode(String fundCode)
+<i>211</i>&nbsp;    {
+<b class="fc"><i>212</i>&nbsp;        FundAssembly fundAssembly = data.get(fundCode);</b>
+<b class="fc"><i>213</i>&nbsp;        return new FundRateRank(null,fundAssembly.getLastOneDayRank(),fundAssembly.getLastOneWeekRank(),fundAssembly.getLastOneMonthRank(),</b>
+<b class="fc"><i>214</i>&nbsp;                fundAssembly.getLastThreeMonthRank(),fundAssembly.getLastSixMonthRank(),fundAssembly.getLastOneYearRank(),fundAssembly.getLastTwoYearsRank(),fundAssembly.getLastThreeYearsRank(),fundAssembly.getLastFiveYearsRank(),fundAssembly.getFromBeginningRank(),fundAssembly.getFromThisYearRank());</b>
+<i>215</i>&nbsp;    }
+<i>216</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-09-12 17:38</div>
+</div>
+</body>
+</html>

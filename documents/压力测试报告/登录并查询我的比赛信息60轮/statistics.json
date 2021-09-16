@@ -1,0 +1,50 @@
+{
+  "获得最新比赛信息" : {
+    "transaction" : "获得最新比赛信息",
+    "sampleCount" : 120000,
+    "errorCount" : 0,
+    "errorPct" : 0.0,
+    "meanResTime" : 84.62207499999927,
+    "medianResTime" : 47.0,
+    "minResTime" : 10.0,
+    "maxResTime" : 2487.0,
+    "pct1ResTime" : 87.0,
+    "pct2ResTime" : 136.0,
+    "pct3ResTime" : 209.0,
+    "throughput" : 594.5803996571253,
+    "receivedKBytesPerSec" : 302.6611653528091,
+    "sentKBytesPerSec" : 176.5837980557221
+  },
+  "Total" : {
+    "transaction" : "Total",
+    "sampleCount" : 122000,
+    "errorCount" : 0,
+    "errorPct" : 0.0,
+    "meanResTime" : 88.25227868852389,
+    "medianResTime" : 47.0,
+    "minResTime" : 10.0,
+    "maxResTime" : 3267.0,
+    "pct1ResTime" : 92.0,
+    "pct2ResTime" : 163.0,
+    "pct3ResTime" : 223.0,
+    "throughput" : 603.8139263248023,
+    "receivedKBytesPerSec" : 307.3299205885701,
+    "sentKBytesPerSec" : 179.4602577840029
+  },
+  "登录请求" : {
+    "transaction" : "登录请求",
+    "sampleCount" : 2000,
+    "errorCount" : 0,
+    "errorPct" : 0.0,
+    "meanResTime" : 306.06450000000007,
+    "medianResTime" : 226.0,
+    "minResTime" : 131.0,
+    "maxResTime" : 3267.0,
+    "pct1ResTime" : 478.0,
+    "pct2ResTime" : 605.0,
+    "pct3ResTime" : 1568.8500000000001,
+    "throughput" : 10.003401156393172,
+    "receivedKBytesPerSec" : 5.060314256847328,
+    "sentKBytesPerSec" : 3.1065249684892864
+  }
+}

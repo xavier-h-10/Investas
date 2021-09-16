@@ -1,0 +1,50 @@
+{
+  "Total" : {
+    "transaction" : "Total",
+    "sampleCount" : 122000,
+    "errorCount" : 54,
+    "errorPct" : 0.044262294,
+    "meanResTime" : 90.14921311475376,
+    "medianResTime" : 125.0,
+    "minResTime" : 10.0,
+    "maxResTime" : 21062.0,
+    "pct1ResTime" : 282.90000000000146,
+    "pct2ResTime" : 403.0,
+    "pct3ResTime" : 794.9600000000064,
+    "throughput" : 593.5208924219057,
+    "receivedKBytesPerSec" : 302.6556240209338,
+    "sentKBytesPerSec" : 166.05751846847286
+  },
+  "登录请求" : {
+    "transaction" : "登录请求",
+    "sampleCount" : 2000,
+    "errorCount" : 54,
+    "errorPct" : 2.7,
+    "meanResTime" : 861.2175,
+    "medianResTime" : 215.0,
+    "minResTime" : 133.0,
+    "maxResTime" : 21062.0,
+    "pct1ResTime" : 622.9000000000001,
+    "pct2ResTime" : 1011.0499999999965,
+    "pct3ResTime" : 21044.0,
+    "throughput" : 9.853867150163083,
+    "receivedKBytesPerSec" : 5.556532174723845,
+    "sentKBytesPerSec" : 2.9774652835942965
+  },
+  "查看自己的比赛参赛详情" : {
+    "transaction" : "查看自己的比赛参赛详情",
+    "sampleCount" : 120000,
+    "errorCount" : 0,
+    "errorPct" : 0.0,
+    "meanResTime" : 77.29807500000072,
+    "medianResTime" : 124.0,
+    "minResTime" : 10.0,
+    "maxResTime" : 6471.0,
+    "pct1ResTime" : 264.0,
+    "pct2ResTime" : 375.0,
+    "pct3ResTime" : 716.0,
+    "throughput" : 584.4307644354399,
+    "receivedKBytesPerSec" : 297.4946640253643,
+    "sentKBytesPerSec" : 163.29627169699214
+  }
+}

@@ -1,0 +1,137 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: FundInfoController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.fundgroup.backend.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: FundInfoController (com.fundgroup.backend.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FundInfoController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (18/ 18)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.fundgroup.backend.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.alibaba.fastjson.JSON;
+<i>4</i>&nbsp;import com.alibaba.fastjson.JSONArray;
+<i>5</i>&nbsp;import com.alibaba.fastjson.JSONObject;
+<i>6</i>&nbsp;import com.fundgroup.backend.dto.FundCard;
+<i>7</i>&nbsp;import com.fundgroup.backend.entity.FundBasicInfo;
+<i>8</i>&nbsp;import com.fundgroup.backend.service.FundBasicInfoService;
+<i>9</i>&nbsp;import com.fundgroup.backend.utils.messageUtils.Message;
+<i>10</i>&nbsp;import com.fundgroup.backend.test100.MessageUtil;
+<i>11</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>12</i>&nbsp;import org.springframework.web.bind.annotation.*;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;import java.util.List;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;@RestController
+<b class="fc"><i>17</i>&nbsp;public class FundInfoController {</b>
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    @Autowired
+<i>20</i>&nbsp;    private FundBasicInfoService fundBasicInfoService;
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    @RequestMapping(value = &quot;/anyone/search/fund/simplified&quot;,method = RequestMethod.GET)
+<i>24</i>&nbsp;    public Message searchFundSimpInfo(@RequestParam(&quot;searchStr&quot;) String searchStr, @RequestParam(&quot;pageIdx&quot;) Integer pageIdx)
+<i>25</i>&nbsp;    {
+<b class="fc"><i>26</i>&nbsp;        if(pageIdx&lt;0)</b>
+<b class="fc"><i>27</i>&nbsp;            return new Message(MessageUtil.INVALID_ARGUMENT);</b>
+<b class="fc"><i>28</i>&nbsp;        Integer pageSize=10;</b>
+<b class="fc"><i>29</i>&nbsp;        List&lt;FundBasicInfo&gt; fundBasicInfos=fundBasicInfoService.searchFundByCodeOrName(searchStr,pageIdx,pageSize);</b>
+<b class="fc"><i>30</i>&nbsp;        JSONArray fundSimpArray=new JSONArray();</b>
+<b class="fc"><i>31</i>&nbsp;        for(FundBasicInfo fundBasicInfo : fundBasicInfos)</b>
+<i>32</i>&nbsp;        {
+<b class="fc"><i>33</i>&nbsp;            JSONObject info=new JSONObject();</b>
+<b class="fc"><i>34</i>&nbsp;            info.put(&quot;fundCode&quot;,fundBasicInfo.getFundCode());</b>
+<b class="fc"><i>35</i>&nbsp;            info.put(&quot;fundName&quot;,fundBasicInfo.getFundName());</b>
+<b class="fc"><i>36</i>&nbsp;            fundSimpArray.add(info);</b>
+<b class="fc"><i>37</i>&nbsp;        }</b>
+<b class="fc"><i>38</i>&nbsp;        JSONObject fundSimp=new JSONObject();</b>
+<b class="fc"><i>39</i>&nbsp;        fundSimp.put(&quot;fundSimpArray&quot;,fundSimpArray);</b>
+<b class="fc"><i>40</i>&nbsp;        return new Message(MessageUtil.SUCCESS,fundSimp);</b>
+<i>41</i>&nbsp;    }
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    @RequestMapping(value = &quot;/anyone/fund/card&quot;,method = RequestMethod.GET)
+<i>44</i>&nbsp;    public Message getFundCard(@RequestParam(&quot;fundCode&quot;) String fundCode)
+<i>45</i>&nbsp;    {
+<b class="fc"><i>46</i>&nbsp;        FundCard fundCard=fundBasicInfoService.searchFundCardByCode(fundCode);</b>
+<i>47</i>&nbsp;//        if(fundCard==null)
+<i>48</i>&nbsp;//            return new Message(MessageUtil.ERROR);
+<b class="fc"><i>49</i>&nbsp;        JSONObject jsonObject= (JSONObject) JSON.toJSON(fundCard);</b>
+<b class="fc"><i>50</i>&nbsp;        return new Message(MessageUtil.SUCCESS,jsonObject);</b>
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    }
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-09-12 17:38</div>
+</div>
+</body>
+</html>

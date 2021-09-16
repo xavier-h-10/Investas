@@ -1,0 +1,129 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: FundManagerInfoDaoImpl</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.fundgroup.backend.daoImpl</a> ]
+</div>
+
+<h1>Coverage Summary for Class: FundManagerInfoDaoImpl (com.fundgroup.backend.daoImpl)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FundManagerInfoDaoImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">FundManagerInfoDaoImpl$$EnhancerBySpringCGLIB$$fb5fb783</td>
+  </tr>
+  <tr>
+    <td class="name">FundManagerInfoDaoImpl$$EnhancerBySpringCGLIB$$fb5fb783$$FastClassBySpringCGLIB$$7562c3</td>
+  </tr>
+  <tr>
+    <td class="name">FundManagerInfoDaoImpl$$FastClassBySpringCGLIB$$558457b3</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.fundgroup.backend.daoImpl;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.fundgroup.backend.dao.FundManagerInfoDao;
+<i>4</i>&nbsp;import com.fundgroup.backend.dto.ManagerInfo;
+<i>5</i>&nbsp;import com.fundgroup.backend.dto.ManagerInfoFund;
+<i>6</i>&nbsp;import com.fundgroup.backend.repository.FundBasicInfoRepository;
+<i>7</i>&nbsp;import com.fundgroup.backend.repository.FundManagerInfoRepository;
+<i>8</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>9</i>&nbsp;import org.springframework.stereotype.Repository;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;import java.util.List;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;@Repository
+<b class="fc"><i>14</i>&nbsp;public class FundManagerInfoDaoImpl implements FundManagerInfoDao {</b>
+<i>15</i>&nbsp;	@Autowired
+<i>16</i>&nbsp;	FundManagerInfoRepository fundManagerInfoRepository;
+<i>17</i>&nbsp;	@Autowired
+<i>18</i>&nbsp;	FundBasicInfoRepository fundBasicInfoRepository;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;	@Override
+<i>21</i>&nbsp;	public ManagerInfo getFundManagerInfoById(String id) {
+<b class="fc"><i>22</i>&nbsp;		ManagerInfo ret = fundManagerInfoRepository.getManagerInfoDtoById(id);</b>
+<b class="fc"><i>23</i>&nbsp;		if (ret == null) {</b>
+<b class="fc"><i>24</i>&nbsp;			return null;</b>
+<i>25</i>&nbsp;		}
+<b class="fc"><i>26</i>&nbsp;		List&lt;ManagerInfoFund&gt; fundList = fundBasicInfoRepository.getFundByManagerId(id);</b>
+<b class="fc"><i>27</i>&nbsp;		ret.setFundList(fundBasicInfoRepository.getFundByManagerId(id));</b>
+<b class="fc"><i>28</i>&nbsp;		return ret;</b>
+<i>29</i>&nbsp;	}
+<i>30</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-09-12 17:38</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,208 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: HomeRankFundDaoImpl</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.fundgroup.backend.daoImpl</a> ]
+</div>
+
+<h1>Coverage Summary for Class: HomeRankFundDaoImpl (com.fundgroup.backend.daoImpl)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">HomeRankFundDaoImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (52/ 52)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">HomeRankFundDaoImpl$$EnhancerBySpringCGLIB$$277c834b</td>
+  </tr>
+  <tr>
+    <td class="name">HomeRankFundDaoImpl$$EnhancerBySpringCGLIB$$277c834b$$FastClassBySpringCGLIB$$f282cec8</td>
+  </tr>
+  <tr>
+    <td class="name">HomeRankFundDaoImpl$$FastClassBySpringCGLIB$$6065b14b</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (52/ 52)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.fundgroup.backend.daoImpl;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.fundgroup.backend.constant.TimeType;
+<i>4</i>&nbsp;import com.fundgroup.backend.dao.HomeRankFundDao;
+<i>5</i>&nbsp;import com.fundgroup.backend.dto.FundPredictionView;
+<i>6</i>&nbsp;import com.fundgroup.backend.dto.HomeRankFund;
+<i>7</i>&nbsp;import com.fundgroup.backend.entity.FundBasicInfo;
+<i>8</i>&nbsp;import com.fundgroup.backend.entity.FundPrediction;
+<i>9</i>&nbsp;import com.fundgroup.backend.entity.PredictionDescription;
+<i>10</i>&nbsp;import com.fundgroup.backend.repository.FundBasicInfoRepository;
+<i>11</i>&nbsp;import com.fundgroup.backend.repository.FundPredictionRepository;
+<i>12</i>&nbsp;import com.fundgroup.backend.repository.FundRateRepository;
+<i>13</i>&nbsp;import com.fundgroup.backend.repository.PredictionDescriptionRepository;
+<i>14</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>15</i>&nbsp;import org.springframework.data.domain.PageRequest;
+<i>16</i>&nbsp;import org.springframework.data.domain.Pageable;
+<i>17</i>&nbsp;import org.springframework.security.core.parameters.P;
+<i>18</i>&nbsp;import org.springframework.stereotype.Repository;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;import java.util.List;
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;@Repository
+<b class="fc"><i>23</i>&nbsp;public class HomeRankFundDaoImpl implements HomeRankFundDao {</b>
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;	@Autowired
+<i>26</i>&nbsp;	FundRateRepository fundRateRepository;
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;	@Autowired
+<i>29</i>&nbsp;	FundPredictionRepository fundPredictionRepository;
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;	@Autowired
+<i>32</i>&nbsp;	FundBasicInfoRepository fundBasicInfoRepository;
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;	@Autowired
+<i>35</i>&nbsp;	PredictionDescriptionRepository predictionDescriptionRepository;
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;	@Override
+<i>38</i>&nbsp;	public List&lt;HomeRankFund&gt; getHistoryTop(Integer page, Integer size, Integer type) {
+<b class="fc"><i>39</i>&nbsp;		if (type &lt;= 10 &amp;&amp; type &gt;= 0) {</b>
+<b class="fc"><i>40</i>&nbsp;			Pageable pageable = PageRequest.of(page, size);</b>
+<b class="fc"><i>41</i>&nbsp;			TimeType timeType = TimeType.values()[type];</b>
+<b class="fc"><i>42</i>&nbsp;			if (timeType == TimeType.LAST_ONE_DAY) {</b>
+<b class="fc"><i>43</i>&nbsp;				return fundRateRepository.getTopByOneDay(pageable);</b>
+<b class="fc"><i>44</i>&nbsp;			} else if (timeType == TimeType.LAST_ONE_WEEK) {</b>
+<b class="fc"><i>45</i>&nbsp;				return fundRateRepository.getTopByOneWeek(pageable);</b>
+<b class="fc"><i>46</i>&nbsp;			} else if (timeType == TimeType.LAST_ONE_MONTH) {</b>
+<b class="fc"><i>47</i>&nbsp;				return fundRateRepository.getTopByOneMonth(pageable);</b>
+<b class="fc"><i>48</i>&nbsp;			} else if (timeType == TimeType.LAST_THREE_MONTHS) {</b>
+<b class="fc"><i>49</i>&nbsp;				return fundRateRepository.getTopByThreeMonths(pageable);</b>
+<b class="fc"><i>50</i>&nbsp;			} else if (timeType == TimeType.LAST_SIX_MONTHS) {</b>
+<b class="fc"><i>51</i>&nbsp;				return fundRateRepository.getTopBySixMonths(pageable);</b>
+<b class="fc"><i>52</i>&nbsp;			} else if (timeType == TimeType.LAST_ONE_YEAR) {</b>
+<b class="fc"><i>53</i>&nbsp;				return fundRateRepository.getTopByOneYear(pageable);</b>
+<b class="fc"><i>54</i>&nbsp;			} else if (timeType == TimeType.LAST_TWO_YEARS) {</b>
+<b class="fc"><i>55</i>&nbsp;				return fundRateRepository.getTopByTwoYears(pageable);</b>
+<b class="fc"><i>56</i>&nbsp;			} else if (timeType == TimeType.LAST_THREE_YEARS) {</b>
+<b class="fc"><i>57</i>&nbsp;				return fundRateRepository.getTopByThreeYears(pageable);</b>
+<b class="fc"><i>58</i>&nbsp;			} else if (timeType == TimeType.LAST_FIVE_YEARS) {</b>
+<b class="fc"><i>59</i>&nbsp;				return fundRateRepository.getTopByFiveYears(pageable);</b>
+<b class="fc"><i>60</i>&nbsp;			} else if (timeType == TimeType.FROM_BEGINNING) {</b>
+<b class="fc"><i>61</i>&nbsp;				return fundRateRepository.getTopFromBeginning(pageable);</b>
+<b class="fc"><i>62</i>&nbsp;			} else if (timeType == TimeType.FROM_THIS_YEAR) {</b>
+<b class="fc"><i>63</i>&nbsp;				return fundRateRepository.getTopFromThisYear(pageable);</b>
+<i>64</i>&nbsp;			}
+<i>65</i>&nbsp;		}
+<b class="fc"><i>66</i>&nbsp;		return null;</b>
+<i>67</i>&nbsp;	}
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;	@Override
+<i>70</i>&nbsp;	public List&lt;HomeRankFund&gt; getPredictionTop(Integer page, Integer size, Integer type) {
+<b class="fc"><i>71</i>&nbsp;		if (type &lt;= 3 &amp;&amp; type &gt;= 1) {</b>
+<b class="fc"><i>72</i>&nbsp;			Pageable pageable = PageRequest.of(page, size);</b>
+<b class="fc"><i>73</i>&nbsp;			if (type == 1) {</b>
+<b class="fc"><i>74</i>&nbsp;				return fundPredictionRepository.getTopByOneDay(pageable);</b>
+<b class="fc"><i>75</i>&nbsp;			} else if (type == 2) {</b>
+<b class="fc"><i>76</i>&nbsp;				return fundPredictionRepository.getTopByTwoDays(pageable);</b>
+<i>77</i>&nbsp;			} else {
+<b class="fc"><i>78</i>&nbsp;				return fundPredictionRepository.getTopByThreeDays(pageable);</b>
+<i>79</i>&nbsp;			}
+<i>80</i>&nbsp;		}
+<b class="fc"><i>81</i>&nbsp;		return null;</b>
+<i>82</i>&nbsp;	}
+<i>83</i>&nbsp;
+<i>84</i>&nbsp;	@Override
+<i>85</i>&nbsp;	public FundPredictionView getPredictionViewByFundCode(String fundCode) {
+<b class="fc"><i>86</i>&nbsp;		FundPredictionView fundPredictionView = new FundPredictionView();</b>
+<b class="fc"><i>87</i>&nbsp;		if(!fundBasicInfoRepository.findById(fundCode).isPresent()||!fundPredictionRepository.findById(fundCode).isPresent())</b>
+<b class="fc"><i>88</i>&nbsp;			return null;</b>
+<i>89</i>&nbsp;
+<b class="fc"><i>90</i>&nbsp;		FundBasicInfo fundBasicInfo = fundBasicInfoRepository.getById(fundCode);</b>
+<b class="fc"><i>91</i>&nbsp;		FundPrediction fundPrediction = fundPredictionRepository.getById(fundCode);</b>
+<i>92</i>&nbsp;
+<b class="fc"><i>93</i>&nbsp;		fundPredictionView.setHasModel(fundBasicInfo.getHas_model());</b>
+<b class="fc"><i>94</i>&nbsp;		fundPredictionView.setLastUpdateDate(fundPrediction.getLastUpdateTimestamp());</b>
+<i>95</i>&nbsp;
+<b class="fc"><i>96</i>&nbsp;		fundPredictionView.setOneDayNAV(fundPrediction.getFutureOneDayNAV());</b>
+<b class="fc"><i>97</i>&nbsp;		fundPredictionView.setTwoDayNAV(fundPrediction.getFutureTwoDaysNAV());</b>
+<b class="fc"><i>98</i>&nbsp;		fundPredictionView.setThreeDayNAV(fundPrediction.getFutureThreeDaysNAV());</b>
+<b class="fc"><i>99</i>&nbsp;		fundPredictionView.setOneDayQuote(fundPrediction.getFutureOneDayChange());</b>
+<b class="fc"><i>100</i>&nbsp;		fundPredictionView.setTwoDayQuote(fundPrediction.getFutureTwoDaysChange());</b>
+<b class="fc"><i>101</i>&nbsp;		fundPredictionView.setThreeDayQuote(fundPrediction.getFutureThreeDaysChange());</b>
+<i>102</i>&nbsp;
+<b class="fc"><i>103</i>&nbsp;		PredictionDescription predictionDescription =</b>
+<b class="fc"><i>104</i>&nbsp;				predictionDescriptionRepository.getById(fundPrediction.getDescriptionId());</b>
+<b class="fc"><i>105</i>&nbsp;		fundPredictionView.setText(predictionDescription.getText());</b>
+<i>106</i>&nbsp;
+<b class="fc"><i>107</i>&nbsp;		return fundPredictionView;</b>
+<i>108</i>&nbsp;	}
+<i>109</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-09-12 17:38</div>
+</div>
+</body>
+</html>

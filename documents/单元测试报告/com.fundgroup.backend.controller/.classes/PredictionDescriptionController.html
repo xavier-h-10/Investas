@@ -1,0 +1,184 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: PredictionDescriptionController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.fundgroup.backend.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: PredictionDescriptionController (com.fundgroup.backend.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PredictionDescriptionController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (21/ 21)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.fundgroup.backend.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.alibaba.fastjson.JSONArray;
+<i>4</i>&nbsp;import com.alibaba.fastjson.JSONObject;
+<i>5</i>&nbsp;import com.alibaba.fastjson.parser.ParserConfig;
+<i>6</i>&nbsp;import com.fundgroup.backend.dto.ShowPredictionDescription;
+<i>7</i>&nbsp;import com.fundgroup.backend.repository.FundPredictionRepository;
+<i>8</i>&nbsp;import com.fundgroup.backend.service.PredictionDescriptionService;
+<i>9</i>&nbsp;import com.fundgroup.backend.utils.messageUtils.Message;
+<i>10</i>&nbsp;import java.time.LocalDateTime;
+<i>11</i>&nbsp;import java.util.ArrayList;
+<i>12</i>&nbsp;import java.util.List;
+<i>13</i>&nbsp;import java.util.Map;
+<i>14</i>&nbsp;import javax.security.auth.kerberos.KerberosKey;
+<i>15</i>&nbsp;import net.sf.jsqlparser.statement.ShowColumnsStatement;
+<i>16</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>17</i>&nbsp;import org.springframework.data.domain.PageRequest;
+<i>18</i>&nbsp;import org.springframework.data.domain.Pageable;
+<i>19</i>&nbsp;import org.springframework.security.core.parameters.P;
+<i>20</i>&nbsp;import org.springframework.web.bind.annotation.RequestBody;
+<i>21</i>&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+<i>22</i>&nbsp;import org.springframework.web.bind.annotation.RequestMethod;
+<i>23</i>&nbsp;import org.springframework.web.bind.annotation.RestController;
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;@RestController
+<b class="fc"><i>26</i>&nbsp;public class PredictionDescriptionController {</b>
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;  @Autowired
+<i>29</i>&nbsp;  PredictionDescriptionService predictionDescriptionService;
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;  @Autowired
+<i>32</i>&nbsp;  FundPredictionRepository fundPredictionRepository;
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;//  TODO: Fix access
+<i>35</i>&nbsp;  @RequestMapping(value = &quot;/anyone/description/createDescription&quot;,
+<i>36</i>&nbsp;      method = RequestMethod.POST)
+<i>37</i>&nbsp;  public Message createDescription(@RequestBody JSONObject param) {
+<b class="fc"><i>38</i>&nbsp;      JSONObject basicInfo = param.getJSONObject(&quot;basicInfo&quot;);</b>
+<i>39</i>&nbsp;
+<b class="fc"><i>40</i>&nbsp;      JSONArray rules = param.getJSONArray(&quot;rule&quot;);</b>
+<i>41</i>&nbsp;
+<b class="fc"><i>42</i>&nbsp;    predictionDescriptionService.createDescription(basicInfo, rules);</b>
+<b class="fc"><i>43</i>&nbsp;    JSONObject jsonObject = new JSONObject();</b>
+<b class="fc"><i>44</i>&nbsp;    jsonObject.put(&quot;src&quot;, predictionDescriptionService.getAll());</b>
+<b class="fc"><i>45</i>&nbsp;    return new Message(0, &quot;创建规则成功&quot;, jsonObject);</b>
+<i>46</i>&nbsp;  }
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;  //  TODO: Fix access
+<i>49</i>&nbsp;  @RequestMapping(value = &quot;/anyone/description/getAllDescription&quot;,
+<i>50</i>&nbsp;      method = RequestMethod.GET)
+<i>51</i>&nbsp;  public Message getAllDescription() {
+<i>52</i>&nbsp;
+<b class="fc"><i>53</i>&nbsp;    JSONObject jsonObject = new JSONObject();</b>
+<b class="fc"><i>54</i>&nbsp;    jsonObject.put(&quot;src&quot;, predictionDescriptionService.getAll());</b>
+<i>55</i>&nbsp;
+<i>56</i>&nbsp;
+<b class="fc"><i>57</i>&nbsp;    return new Message(0, &quot;创建规则成功&quot;, jsonObject);</b>
+<i>58</i>&nbsp;  }
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;  //  TODO: Fix access
+<i>61</i>&nbsp;  @RequestMapping(value = &quot;/anyone/description/deleteDescription&quot;,
+<i>62</i>&nbsp;      method = RequestMethod.POST)
+<i>63</i>&nbsp;  public Message deleteDescription(@RequestBody JSONObject param) {
+<i>64</i>&nbsp;
+<b class="fc"><i>65</i>&nbsp;    Integer id = param.getInteger(&quot;value&quot;);</b>
+<i>66</i>&nbsp;
+<b class="fc"><i>67</i>&nbsp;    predictionDescriptionService.deleteDescription(id);</b>
+<i>68</i>&nbsp;
+<b class="fc"><i>69</i>&nbsp;    return new Message(0, &quot;删除成功&quot;);</b>
+<i>70</i>&nbsp;  }
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;  //  TODO: Fix access
+<i>73</i>&nbsp;  @RequestMapping(value = &quot;/anyone/description/updateDescription&quot;,
+<i>74</i>&nbsp;      method = RequestMethod.POST)
+<i>75</i>&nbsp;  public Message updateDescription() {
+<b class="fc"><i>76</i>&nbsp;    predictionDescriptionService.updateAllPredictionDescription();</b>
+<i>77</i>&nbsp;
+<b class="fc"><i>78</i>&nbsp;    return new Message(0, &quot;更新成功&quot;);</b>
+<i>79</i>&nbsp;  }
+<i>80</i>&nbsp;
+<i>81</i>&nbsp;  //  TODO: Fix access
+<i>82</i>&nbsp;  @RequestMapping(value = &quot;/anyone/description/getReportData&quot;,
+<i>83</i>&nbsp;      method = RequestMethod.GET)
+<i>84</i>&nbsp;  public Message getReportData() {
+<i>85</i>&nbsp;
+<b class="fc"><i>86</i>&nbsp;    List&lt;ShowPredictionDescription&gt; descriptions = fundPredictionRepository.getFundPredictionDescription();</b>
+<i>87</i>&nbsp;//    for(ShowPredictionDescription showPredictionDescription: descriptions){
+<i>88</i>&nbsp;//      showPredictionDescription.setName(predictionDescriptionService.getNameById(showPredictionDescription.getId()));
+<i>89</i>&nbsp;//    }
+<i>90</i>&nbsp;
+<b class="fc"><i>91</i>&nbsp;    JSONObject jsonObject = new JSONObject();</b>
+<b class="fc"><i>92</i>&nbsp;    jsonObject.put(&quot;src&quot;, descriptions);</b>
+<i>93</i>&nbsp;
+<b class="fc"><i>94</i>&nbsp;    return new Message(0, &quot;获取数据成功&quot;, jsonObject);</b>
+<i>95</i>&nbsp;  }
+<i>96</i>&nbsp;
+<i>97</i>&nbsp;  public Message test() {
+<b class="fc"><i>98</i>&nbsp;    predictionDescriptionService.getNameById(6);</b>
+<b class="fc"><i>99</i>&nbsp;    return new Message();</b>
+<i>100</i>&nbsp;  }
+<i>101</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-09-12 17:38</div>
+</div>
+</body>
+</html>

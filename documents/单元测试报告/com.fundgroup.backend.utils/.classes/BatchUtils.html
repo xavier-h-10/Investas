@@ -1,0 +1,145 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: BatchUtils</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.fundgroup.backend.utils</a> ]
+</div>
+
+<h1>Coverage Summary for Class: BatchUtils (com.fundgroup.backend.utils)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BatchUtils</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (15/ 15)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">BatchUtils$$EnhancerBySpringCGLIB$$71ef912c</td>
+  </tr>
+  <tr>
+    <td class="name">BatchUtils$$EnhancerBySpringCGLIB$$71ef912c$$FastClassBySpringCGLIB$$395b41ce</td>
+  </tr>
+  <tr>
+    <td class="name">BatchUtils$$FastClassBySpringCGLIB$$1f1dab4f</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (15/ 15)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.fundgroup.backend.utils;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.List;
+<i>4</i>&nbsp;import javax.persistence.EntityManager;
+<i>5</i>&nbsp;import javax.persistence.PersistenceContext;
+<i>6</i>&nbsp;import javax.transaction.Transactional;
+<i>7</i>&nbsp;import org.springframework.stereotype.Service;
+<i>8</i>&nbsp;import org.springframework.util.ObjectUtils;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;@Service
+<i>11</i>&nbsp;@Transactional
+<b class="fc"><i>12</i>&nbsp;public class BatchUtils {</b>
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;  @PersistenceContext
+<i>15</i>&nbsp;  private EntityManager entityManager;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;  //配置文件中每次批量提交的数量
+<b class="fc"><i>18</i>&nbsp;  private long batchSize = 5000;</b>
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;  /**
+<i>21</i>&nbsp;   * 批量更新
+<i>22</i>&nbsp;   *
+<i>23</i>&nbsp;   * @param list 实体类集合
+<i>24</i>&nbsp;   * @param &lt;T&gt;  表对应的实体类
+<i>25</i>&nbsp;   */
+<i>26</i>&nbsp;  public &lt;T&gt; void batchUpdate(List&lt;T&gt; list) {
+<b class="fc"><i>27</i>&nbsp;    if (!ObjectUtils.isEmpty(list)) {</b>
+<b class="fc"><i>28</i>&nbsp;      int size = list.size();</b>
+<b class="fc"><i>29</i>&nbsp;      System.out.println(&quot;start batchUpdate size= &quot; + size);</b>
+<b class="fc"><i>30</i>&nbsp;      for (int i = 0; i &lt; size; i++) {</b>
+<b class="fc"><i>31</i>&nbsp;        if (i % 1000 == 0) {</b>
+<b class="fc"><i>32</i>&nbsp;          System.out.println(i);</b>
+<i>33</i>&nbsp;        }
+<b class="fc"><i>34</i>&nbsp;        entityManager.merge(list.get(i));</b>
+<b class="fc"><i>35</i>&nbsp;        if (i % batchSize == 0) {</b>
+<b class="fc"><i>36</i>&nbsp;          entityManager.flush();</b>
+<b class="fc"><i>37</i>&nbsp;          entityManager.clear();</b>
+<i>38</i>&nbsp;        }
+<i>39</i>&nbsp;      }
+<b class="fc"><i>40</i>&nbsp;      entityManager.flush();</b>
+<b class="fc"><i>41</i>&nbsp;      entityManager.clear();</b>
+<i>42</i>&nbsp;    }
+<b class="fc"><i>43</i>&nbsp;  }</b>
+<i>44</i>&nbsp;}
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-09-12 17:38</div>
+</div>
+</body>
+</html>

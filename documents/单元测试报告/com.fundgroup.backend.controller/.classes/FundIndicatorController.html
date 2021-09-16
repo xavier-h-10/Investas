@@ -1,0 +1,151 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: FundIndicatorController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.fundgroup.backend.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: FundIndicatorController (com.fundgroup.backend.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FundIndicatorController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (16/ 16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;//基于规则的基金数据 20210828
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;package com.fundgroup.backend.controller;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import com.alibaba.fastjson.JSONArray;
+<i>7</i>&nbsp;import com.alibaba.fastjson.JSONObject;
+<i>8</i>&nbsp;import com.fundgroup.backend.dto.HomeFundIndicator;
+<i>9</i>&nbsp;import com.fundgroup.backend.service.FundIndicatorService;
+<i>10</i>&nbsp;import com.fundgroup.backend.utils.messageUtils.Message;
+<i>11</i>&nbsp;import com.fundgroup.backend.test100.MessageUtil;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;import java.util.List;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>16</i>&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+<i>17</i>&nbsp;import org.springframework.web.bind.annotation.RequestMethod;
+<i>18</i>&nbsp;import org.springframework.web.bind.annotation.RequestParam;
+<i>19</i>&nbsp;import org.springframework.web.bind.annotation.RestController;
+<i>20</i>&nbsp;import com.alibaba.fastjson.JSON;
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;@RestController
+<b class="fc"><i>23</i>&nbsp;public class FundIndicatorController {</b>
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;	private FundIndicatorService fundIndicatorService;
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;	@Autowired
+<i>28</i>&nbsp;	void setFundIndicatorService(FundIndicatorService fundIndicatorService) {
+<b class="fc"><i>29</i>&nbsp;		this.fundIndicatorService = fundIndicatorService;</b>
+<b class="fc"><i>30</i>&nbsp;	}</b>
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;	//测试端口
+<i>33</i>&nbsp;	@RequestMapping(value = &quot;anyone/fetch_indicator&quot;, method = RequestMethod.GET)
+<i>34</i>&nbsp;	public void fetchFundIndicator() {
+<b class="fc"><i>35</i>&nbsp;		fundIndicatorService.fetchFundIndicator();</b>
+<b class="fc"><i>36</i>&nbsp;	}</b>
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;	//测试端口
+<i>39</i>&nbsp;	@RequestMapping(value = &quot;anyone/process_data&quot;, method = RequestMethod.GET)
+<i>40</i>&nbsp;	public void processData() {
+<b class="fc"><i>41</i>&nbsp;		fundIndicatorService.processData();</b>
+<b class="fc"><i>42</i>&nbsp;	}</b>
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;	@RequestMapping(value = &quot;anyone/getFundIndicator&quot;, method = RequestMethod.GET)
+<i>45</i>&nbsp;	public Message getFundIndicatorByCode(@RequestParam(&quot;fundCode&quot;) String fundCode) {
+<b class="fc"><i>46</i>&nbsp;		JSONArray result = fundIndicatorService.getFundIndicatorByCode(fundCode);</b>
+<b class="fc"><i>47</i>&nbsp;		return new Message(MessageUtil.SUCCESS, result.toJSONString());</b>
+<i>48</i>&nbsp;	}
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;	//给三个指标的数字
+<i>51</i>&nbsp;	@RequestMapping(value = &quot;anyone/getFundIndicatorNumber&quot;, method = RequestMethod.GET)
+<i>52</i>&nbsp;	public Message getFundIndicatorNumber(@RequestParam(&quot;fundCode&quot;) String fundCode) {
+<b class="fc"><i>53</i>&nbsp;		List&lt;Integer&gt; result = fundIndicatorService.getFundIndicatorNumber(fundCode);</b>
+<b class="fc"><i>54</i>&nbsp;		return new Message(MessageUtil.SUCCESS, JSON.toJSONString(result));</b>
+<i>55</i>&nbsp;	}
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;	//给三个指标的数字
+<i>58</i>&nbsp;	@RequestMapping(value = &quot;anyone/fund/indicator/rank&quot;, method = RequestMethod.GET)
+<i>59</i>&nbsp;	public Message getHomeFundIndicator(@RequestParam(&quot;sharp&quot;) Integer sharp, @RequestParam(&quot;maxRet&quot;) Integer maxRet,
+<i>60</i>&nbsp;										@RequestParam(&quot;stdDev&quot;) Integer stdDev, @RequestParam(&quot;profit&quot;) Integer profit,
+<i>61</i>&nbsp;										@RequestParam(&quot;page&quot;)Integer page, @RequestParam(&quot;size&quot;)Integer size) {
+<b class="fc"><i>62</i>&nbsp;		List&lt;HomeFundIndicator&gt; ret =</b>
+<b class="fc"><i>63</i>&nbsp;				fundIndicatorService.getHomeFundIndicator(sharp, maxRet, stdDev, profit, page, size);</b>
+<b class="fc"><i>64</i>&nbsp;		JSONObject jsonObject = new JSONObject();</b>
+<b class="fc"><i>65</i>&nbsp;		jsonObject.put(&quot;list&quot;, ret);</b>
+<b class="fc"><i>66</i>&nbsp;		return new Message(MessageUtil.SUCCESS, jsonObject);</b>
+<i>67</i>&nbsp;	}
+<i>68</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-09-12 17:38</div>
+</div>
+</body>
+</html>

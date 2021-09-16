@@ -1,0 +1,112 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: FundPredictionController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.fundgroup.backend.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: FundPredictionController (com.fundgroup.backend.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FundPredictionController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/ 3)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.fundgroup.backend.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.fundgroup.backend.entity.FundPrediction;
+<i>4</i>&nbsp;import com.fundgroup.backend.repository.FundPredictionRepository;
+<i>5</i>&nbsp;import com.fundgroup.backend.utils.messageUtils.Message;
+<i>6</i>&nbsp;import com.fundgroup.backend.test100.MessageUtil;
+<i>7</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>8</i>&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+<i>9</i>&nbsp;import org.springframework.web.bind.annotation.RequestMethod;
+<i>10</i>&nbsp;import org.springframework.web.bind.annotation.RequestParam;
+<i>11</i>&nbsp;import org.springframework.web.bind.annotation.RestController;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;@RestController
+<b class="fc"><i>14</i>&nbsp;public class FundPredictionController {</b>
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;	@Autowired
+<i>17</i>&nbsp;	FundPredictionRepository fundPredictionRepository;
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;	@RequestMapping(value = &quot;/anyone/fund/prediction&quot;, method = RequestMethod.GET)
+<i>20</i>&nbsp;	public Message getFundPrediction(@RequestParam(&quot;code&quot;) String code) {
+<b class="fc"><i>21</i>&nbsp;		FundPrediction ret = fundPredictionRepository.getFundPredictionByFundCode(code);</b>
+<i>22</i>&nbsp;//		if (ret == null) {
+<b class="fc"><i>23</i>&nbsp;			return new Message(MessageUtil.ERROR, &quot;基金不存在&quot;);</b>
+<i>24</i>&nbsp;//		} else {
+<i>25</i>&nbsp;//			return new Message(MessageUtil.SUCCESS, (JSONObject) JSON.toJSON(ret));
+<i>26</i>&nbsp;//		}
+<i>27</i>&nbsp;	}
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-09-12 17:38</div>
+</div>
+</body>
+</html>

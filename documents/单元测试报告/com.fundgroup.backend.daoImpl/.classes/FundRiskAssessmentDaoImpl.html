@@ -1,0 +1,119 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: FundRiskAssessmentDaoImpl</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.fundgroup.backend.daoImpl</a> ]
+</div>
+
+<h1>Coverage Summary for Class: FundRiskAssessmentDaoImpl (com.fundgroup.backend.daoImpl)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FundRiskAssessmentDaoImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">FundRiskAssessmentDaoImpl$$EnhancerBySpringCGLIB$$a56d8f9</td>
+  </tr>
+  <tr>
+    <td class="name">FundRiskAssessmentDaoImpl$$EnhancerBySpringCGLIB$$a56d8f9$$FastClassBySpringCGLIB$$9ac76015</td>
+  </tr>
+  <tr>
+    <td class="name">FundRiskAssessmentDaoImpl$$FastClassBySpringCGLIB$$1ed919c5</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.fundgroup.backend.daoImpl;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.fundgroup.backend.dao.FundRiskAssessmentDao;
+<i>4</i>&nbsp;import com.fundgroup.backend.entity.FundRiskAssessment;
+<i>5</i>&nbsp;import com.fundgroup.backend.repository.FundRiskAssessmentRepository;
+<i>6</i>&nbsp;import java.util.List;
+<i>7</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>8</i>&nbsp;import org.springframework.stereotype.Repository;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;@Repository
+<b class="fc"><i>11</i>&nbsp;public class FundRiskAssessmentDaoImpl implements FundRiskAssessmentDao {</b>
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;  @Autowired
+<i>14</i>&nbsp;  private FundRiskAssessmentRepository fundRiskAssessmentRepository;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;  @Override
+<i>17</i>&nbsp;  public List&lt;FundRiskAssessment&gt; getAll() {
+<b class="fc"><i>18</i>&nbsp;    return fundRiskAssessmentRepository.getAll();</b>
+<i>19</i>&nbsp;  }
+<i>20</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-09-12 17:38</div>
+</div>
+</body>
+</html>

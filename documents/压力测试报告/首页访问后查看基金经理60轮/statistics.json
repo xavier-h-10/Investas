@@ -1,0 +1,50 @@
+{
+  "访问首页" : {
+    "transaction" : "访问首页",
+    "sampleCount" : 120000,
+    "errorCount" : 14,
+    "errorPct" : 0.011666667,
+    "meanResTime" : 3146.461708333337,
+    "medianResTime" : 1585.0,
+    "minResTime" : 12.0,
+    "maxResTime" : 108126.0,
+    "pct1ResTime" : 3283.0,
+    "pct2ResTime" : 5150.800000000003,
+    "pct3ResTime" : 10507.94000000001,
+    "throughput" : 205.98453742739045,
+    "receivedKBytesPerSec" : 155.13652684643682,
+    "sentKBytesPerSec" : 48.674260182931434
+  },
+  "Total" : {
+    "transaction" : "Total",
+    "sampleCount" : 240000,
+    "errorCount" : 20,
+    "errorPct" : 0.008333334,
+    "meanResTime" : 3299.677029166682,
+    "medianResTime" : 1381.5,
+    "minResTime" : 12.0,
+    "maxResTime" : 150941.0,
+    "pct1ResTime" : 2072.0,
+    "pct2ResTime" : 3029.0,
+    "pct3ResTime" : 5644.660000000054,
+    "throughput" : 411.9499824063028,
+    "receivedKBytesPerSec" : 543.5489229492615,
+    "sentKBytesPerSec" : 93.52564348410988
+  },
+  "基金经理" : {
+    "transaction" : "基金经理",
+    "sampleCount" : 120000,
+    "errorCount" : 6,
+    "errorPct" : 0.005,
+    "meanResTime" : 3452.892349999987,
+    "medianResTime" : 1594.0,
+    "minResTime" : 15.0,
+    "maxResTime" : 150941.0,
+    "pct1ResTime" : 3625.0,
+    "pct2ResTime" : 5736.0,
+    "pct3ResTime" : 13177.900000000016,
+    "throughput" : 206.38166505287668,
+    "receivedKBytesPerSec" : 389.1864754547706,
+    "sentKBytesPerSec" : 44.9421974133068
+  }
+}

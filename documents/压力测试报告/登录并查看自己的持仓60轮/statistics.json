@@ -1,0 +1,50 @@
+{
+  "Total" : {
+    "transaction" : "Total",
+    "sampleCount" : 122000,
+    "errorCount" : 1,
+    "errorPct" : 8.1967213E-4,
+    "meanResTime" : 81.26162295081929,
+    "medianResTime" : 88.0,
+    "minResTime" : 8.0,
+    "maxResTime" : 21027.0,
+    "pct1ResTime" : 171.0,
+    "pct2ResTime" : 231.0,
+    "pct3ResTime" : 363.0,
+    "throughput" : 604.2206296771382,
+    "receivedKBytesPerSec" : 307.5475701864788,
+    "sentKBytesPerSec" : 161.00724112922396
+  },
+  "登录请求" : {
+    "transaction" : "登录请求",
+    "sampleCount" : 2000,
+    "errorCount" : 1,
+    "errorPct" : 0.05,
+    "meanResTime" : 305.0680000000003,
+    "medianResTime" : 238.0,
+    "minResTime" : 122.0,
+    "maxResTime" : 21027.0,
+    "pct1ResTime" : 482.9000000000001,
+    "pct2ResTime" : 616.5499999999984,
+    "pct3ResTime" : 1259.8600000000001,
+    "throughput" : 9.957382403313817,
+    "receivedKBytesPerSec" : 5.047736508058012,
+    "sentKBytesPerSec" : 3.090687871534831
+  },
+  "获取用户持仓信息" : {
+    "transaction" : "获取用户持仓信息",
+    "sampleCount" : 120000,
+    "errorCount" : 0,
+    "errorPct" : 0.0,
+    "meanResTime" : 77.53151666666737,
+    "medianResTime" : 88.0,
+    "minResTime" : 8.0,
+    "maxResTime" : 2094.0,
+    "pct1ResTime" : 167.0,
+    "pct2ResTime" : 216.0,
+    "pct3ResTime" : 343.0,
+    "throughput" : 595.0019833399444,
+    "receivedKBytesPerSec" : 302.8757654452598,
+    "sentKBytesPerSec" : 158.11519176418088
+  }
+}

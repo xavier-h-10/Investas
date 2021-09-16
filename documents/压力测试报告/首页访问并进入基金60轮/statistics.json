@@ -1,0 +1,50 @@
+{
+  "访问首页" : {
+    "transaction" : "访问首页",
+    "sampleCount" : 120000,
+    "errorCount" : 9,
+    "errorPct" : 0.0075,
+    "meanResTime" : 21.853683333333205,
+    "medianResTime" : 17.0,
+    "minResTime" : 8.0,
+    "maxResTime" : 21064.0,
+    "pct1ResTime" : 26.0,
+    "pct2ResTime" : 31.0,
+    "pct3ResTime" : 47.0,
+    "throughput" : 984.8335631278314,
+    "receivedKBytesPerSec" : 741.6497767069422,
+    "sentKBytesPerSec" : 232.7264136208637
+  },
+  "Total" : {
+    "transaction" : "Total",
+    "sampleCount" : 240000,
+    "errorCount" : 9,
+    "errorPct" : 0.00375,
+    "meanResTime" : 22.528237500000124,
+    "medianResTime" : 18.0,
+    "minResTime" : 8.0,
+    "maxResTime" : 21064.0,
+    "pct1ResTime" : 28.0,
+    "pct2ResTime" : 33.0,
+    "pct3ResTime" : 46.0,
+    "throughput" : 1969.4570042917749,
+    "receivedKBytesPerSec" : 3084.6454605554686,
+    "sentKBytesPerSec" : 449.07259539044486
+  },
+  "FundView_Request" : {
+    "transaction" : "FundView_Request",
+    "sampleCount" : 120000,
+    "errorCount" : 0,
+    "errorPct" : 0.0,
+    "meanResTime" : 23.202791666666705,
+    "medianResTime" : 19.0,
+    "minResTime" : 10.0,
+    "maxResTime" : 356.0,
+    "pct1ResTime" : 28.0,
+    "pct2ResTime" : 33.0,
+    "pct3ResTime" : 50.0,
+    "throughput" : 985.4967724980701,
+    "receivedKBytesPerSec" : 2344.9028339319884,
+    "sentKBytesPerSec" : 216.53981817584545
+  }
+}

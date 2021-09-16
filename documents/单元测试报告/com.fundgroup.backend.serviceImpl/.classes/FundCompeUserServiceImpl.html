@@ -1,0 +1,244 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: FundCompeUserServiceImpl</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.fundgroup.backend.serviceImpl</a> ]
+</div>
+
+<h1>Coverage Summary for Class: FundCompeUserServiceImpl (com.fundgroup.backend.serviceImpl)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FundCompeUserServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (66/ 66)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.fundgroup.backend.serviceImpl;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.fundgroup.backend.dao.*;
+<i>4</i>&nbsp;import com.fundgroup.backend.dto.FundCompeRank;
+<i>5</i>&nbsp;import com.fundgroup.backend.entity.*;
+<i>6</i>&nbsp;import com.fundgroup.backend.repository.FundCompeUserPosRepository;
+<i>7</i>&nbsp;import com.fundgroup.backend.service.FundCompeUserService;
+<i>8</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>9</i>&nbsp;import org.springframework.stereotype.Service;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;import java.math.BigDecimal;
+<i>12</i>&nbsp;import java.math.BigInteger;
+<i>13</i>&nbsp;import java.time.LocalDate;
+<i>14</i>&nbsp;import java.util.ArrayList;
+<i>15</i>&nbsp;import java.util.Collections;
+<i>16</i>&nbsp;import java.util.List;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;@Service
+<b class="fc"><i>19</i>&nbsp;public class FundCompeUserServiceImpl implements FundCompeUserService {</b>
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    @Autowired
+<i>22</i>&nbsp;    private FundCompeUserDao fundCompeUserDao;
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    @Autowired
+<i>25</i>&nbsp;    private FundDailyInfoDao fundDailyInfoDao;
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    @Autowired
+<i>28</i>&nbsp;    private FundCompetitionDao fundCompetitionDao;
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    @Autowired
+<i>31</i>&nbsp;    private UserDao userDao;
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    private BigDecimal fundAssertCalculate(List&lt;FundCompeUserPos&gt; fundCompeUserPosList)
+<i>35</i>&nbsp;    {
+<b class="fc"><i>36</i>&nbsp;        LocalDate today=LocalDate.now();</b>
+<b class="fc"><i>37</i>&nbsp;        BigDecimal result = BigDecimal.valueOf(0);</b>
+<b class="fc"><i>38</i>&nbsp;        for(FundCompeUserPos fundCompeUserPos:fundCompeUserPosList)</b>
+<i>39</i>&nbsp;        {
+<b class="fc"><i>40</i>&nbsp;            String fundCode=fundCompeUserPos.getFundCode();</b>
+<b class="fc"><i>41</i>&nbsp;            BigDecimal amount=fundCompeUserPos.getAmount();</b>
+<b class="fc"><i>42</i>&nbsp;            FundDailyInfo fundDailyInfo=fundDailyInfoDao.getFundDailyInfoByCodeDate(fundCode,today);</b>
+<b class="fc"><i>43</i>&nbsp;            if(fundDailyInfo==null)</b>
+<i>44</i>&nbsp;            { }
+<b class="fc"><i>45</i>&nbsp;            fundCompeUserPos.setCalculateDate(today);</b>
+<b class="fc"><i>46</i>&nbsp;            BigDecimal nav=BigDecimal.valueOf(fundDailyInfo.getNAV());</b>
+<b class="fc"><i>47</i>&nbsp;            BigDecimal tmpMult = nav.multiply(amount);</b>
+<b class="fc"><i>48</i>&nbsp;            result = result.add(tmpMult);</b>
+<b class="fc"><i>49</i>&nbsp;        }</b>
+<b class="fc"><i>50</i>&nbsp;        return result;</b>
+<i>51</i>&nbsp;    }
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    private boolean updateCompeUserByCompeId(Integer competitionId)
+<i>54</i>&nbsp;    {
+<b class="fc"><i>55</i>&nbsp;        List&lt;FundCompeUser&gt; fundCompeUsers=fundCompeUserDao.getFundCompeUsersByCompetitionId(competitionId);</b>
+<b class="fc"><i>56</i>&nbsp;        if(fundCompeUsers.isEmpty())</b>
+<i>57</i>&nbsp;        {}
+<i>58</i>&nbsp;
+<b class="fc"><i>59</i>&nbsp;        for(FundCompeUser fundCompeUser:fundCompeUsers)</b>
+<i>60</i>&nbsp;        {
+<b class="fc"><i>61</i>&nbsp;            List&lt;FundCompeUserPos&gt; activeItems=fundCompeUser.getFundCompeUserPosList();</b>
+<b class="fc"><i>62</i>&nbsp;            BigDecimal fundAssert=fundAssertCalculate(activeItems);</b>
+<b class="fc"><i>63</i>&nbsp;            if(fundAssert.compareTo(BigDecimal.valueOf(0))&lt;0)</b>
+<i>64</i>&nbsp;            {}
+<b class="fc"><i>65</i>&nbsp;            fundCompeUser.setTotalAsset(fundAssert);</b>
+<b class="fc"><i>66</i>&nbsp;            fundCompeUser.setFundCompeUserPosList(activeItems);</b>
+<b class="fc"><i>67</i>&nbsp;        }</b>
+<b class="fc"><i>68</i>&nbsp;        fundCompeUserDao.updateFundCompeUserList(fundCompeUsers);</b>
+<i>69</i>&nbsp;
+<b class="fc"><i>70</i>&nbsp;        return true;</b>
+<i>71</i>&nbsp;    }
+<i>72</i>&nbsp;
+<i>73</i>&nbsp;    /**
+<i>74</i>&nbsp;     * updateActiveCompetition
+<i>75</i>&nbsp;     * @return unsuccessfully update competition id
+<i>76</i>&nbsp;     */
+<i>77</i>&nbsp;    @Override
+<i>78</i>&nbsp;    public List&lt;Integer&gt; updateActiveCompetition()
+<i>79</i>&nbsp;    {
+<b class="fc"><i>80</i>&nbsp;        List&lt;Integer&gt; failCompetition=new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>81</i>&nbsp;        LocalDate today=LocalDate.now();</b>
+<b class="fc"><i>82</i>&nbsp;        List&lt;FundCompetition&gt; fundCompetitionList=fundCompetitionDao.getActiveCompetition(today);</b>
+<b class="fc"><i>83</i>&nbsp;        for(FundCompetition fundCompetition:fundCompetitionList)</b>
+<i>84</i>&nbsp;        {
+<b class="fc"><i>85</i>&nbsp;            Integer competitionId=fundCompetition.getCompetitionId();</b>
+<b class="fc"><i>86</i>&nbsp;            if(!updateCompeUserByCompeId(competitionId))</b>
+<i>87</i>&nbsp;            { }
+<b class="fc"><i>88</i>&nbsp;        }</b>
+<b class="fc"><i>89</i>&nbsp;        return failCompetition;</b>
+<i>90</i>&nbsp;    }
+<i>91</i>&nbsp;
+<i>92</i>&nbsp;    @Override
+<i>93</i>&nbsp;    public List&lt;FundCompeUser&gt; getAll(Long userId)
+<i>94</i>&nbsp;    {
+<b class="fc"><i>95</i>&nbsp;        return fundCompeUserDao.getAllByUserId(userId);</b>
+<i>96</i>&nbsp;    }
+<i>97</i>&nbsp;
+<i>98</i>&nbsp;    @Override
+<i>99</i>&nbsp;    public List&lt;FundCompeUser&gt; getActive(Long userId)
+<i>100</i>&nbsp;    {
+<b class="fc"><i>101</i>&nbsp;        return fundCompeUserDao.getAllActiveByUserId(userId);</b>
+<i>102</i>&nbsp;    }
+<i>103</i>&nbsp;
+<i>104</i>&nbsp;    @Override
+<i>105</i>&nbsp;    public FundCompeUser getFundCompeUserByCompetitionIdAndUserId(Integer competitionId,Long userId)
+<i>106</i>&nbsp;    {
+<b class="fc"><i>107</i>&nbsp;        return fundCompeUserDao.getFundCompeUserByCompetitionIdAndUserId(competitionId,userId);</b>
+<i>108</i>&nbsp;    }
+<i>109</i>&nbsp;
+<i>110</i>&nbsp;    @Override
+<i>111</i>&nbsp;    public List&lt;FundCompeRank&gt; getTopRankByCompetitionId(Integer competitionId, Integer topNumber)
+<i>112</i>&nbsp;    {
+<b class="fc"><i>113</i>&nbsp;        List&lt;Object[]&gt; topRankList=fundCompeUserDao.getTopRankByCompetitionId(competitionId,topNumber);</b>
+<b class="fc"><i>114</i>&nbsp;        if(topRankList.isEmpty())</b>
+<i>115</i>&nbsp;        {}
+<b class="fc"><i>116</i>&nbsp;        List&lt;FundCompeRank&gt; fundCompeRankList=new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>117</i>&nbsp;        Integer rank=1;</b>
+<b class="fc"><i>118</i>&nbsp;        for(Object[] topRank : topRankList)</b>
+<i>119</i>&nbsp;        {
+<b class="fc"><i>120</i>&nbsp;            Long userId=Long.parseLong(String.valueOf(topRank[0]));</b>
+<b class="fc"><i>121</i>&nbsp;            Double rate=Double.parseDouble(String.valueOf(topRank[1]));</b>
+<b class="fc"><i>122</i>&nbsp;            User user=userDao.findUserByUserId(userId);</b>
+<b class="fc"><i>123</i>&nbsp;            String nickname=&quot;&quot;;</b>
+<b class="fc"><i>124</i>&nbsp;            if(user==null)</b>
+<i>125</i>&nbsp;            {}
+<i>126</i>&nbsp;            else
+<b class="fc"><i>127</i>&nbsp;                nickname=user.getNickname();</b>
+<b class="fc"><i>128</i>&nbsp;            FundCompeRank fundCompeRank=new FundCompeRank(rank,rate,nickname);</b>
+<b class="fc"><i>129</i>&nbsp;            fundCompeRankList.add(fundCompeRank);</b>
+<b class="fc"><i>130</i>&nbsp;            rank++;</b>
+<b class="fc"><i>131</i>&nbsp;        }</b>
+<b class="fc"><i>132</i>&nbsp;        return fundCompeRankList;</b>
+<i>133</i>&nbsp;    }
+<i>134</i>&nbsp;
+<i>135</i>&nbsp;    /**
+<i>136</i>&nbsp;     *
+<i>137</i>&nbsp;     * @param init
+<i>138</i>&nbsp;     * @return -1:already join | -2:competition not valid | -3: capacity full | 0:success
+<i>139</i>&nbsp;     */
+<i>140</i>&nbsp;    @Override
+<i>141</i>&nbsp;    public Integer joinCompetition(FundCompeUser init)
+<i>142</i>&nbsp;    {
+<b class="fc"><i>143</i>&nbsp;        FundCompetition fundCompetition=fundCompetitionDao.getActivePublicCompetitionByCompeId(init.getCompetitionId());</b>
+<b class="fc"><i>144</i>&nbsp;        if(fundCompetition==null)</b>
+<b class="fc"><i>145</i>&nbsp;            return -2;</b>
+<b class="fc"><i>146</i>&nbsp;        if(fundCompetition.getCapacity().compareTo(fundCompetition.getNumber())&lt;=0)</b>
+<i>147</i>&nbsp;        {
+<b class="fc"><i>148</i>&nbsp;            return -3;</b>
+<i>149</i>&nbsp;        }
+<b class="fc"><i>150</i>&nbsp;        FundCompeUser fundCompeUser=fundCompeUserDao.getFundCompeUserByCompetitionIdAndUserId(init.getCompetitionId(),init.getUserId());</b>
+<b class="fc"><i>151</i>&nbsp;        if(fundCompeUser!=null)</b>
+<b class="fc"><i>152</i>&nbsp;            return -1;</b>
+<b class="fc"><i>153</i>&nbsp;        BigDecimal capital=new BigDecimal(fundCompetition.getInitialCapital());</b>
+<b class="fc"><i>154</i>&nbsp;        init.setSurplusMoney(capital);</b>
+<b class="fc"><i>155</i>&nbsp;        init.setTotalAsset(capital);</b>
+<b class="fc"><i>156</i>&nbsp;        init.setTotalChange(capital);</b>
+<b class="fc"><i>157</i>&nbsp;        fundCompeUserDao.saveFundCompeUser(init);</b>
+<b class="fc"><i>158</i>&nbsp;        return 0;</b>
+<i>159</i>&nbsp;    }
+<i>160</i>&nbsp;
+<i>161</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-09-12 17:38</div>
+</div>
+</body>
+</html>

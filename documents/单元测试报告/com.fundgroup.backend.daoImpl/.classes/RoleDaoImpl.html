@@ -1,0 +1,127 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RoleDaoImpl</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.fundgroup.backend.daoImpl</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RoleDaoImpl (com.fundgroup.backend.daoImpl)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RoleDaoImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">RoleDaoImpl$$EnhancerBySpringCGLIB$$1330ae19</td>
+  </tr>
+  <tr>
+    <td class="name">RoleDaoImpl$$EnhancerBySpringCGLIB$$1330ae19$$FastClassBySpringCGLIB$$1f01147f</td>
+  </tr>
+  <tr>
+    <td class="name">RoleDaoImpl$$FastClassBySpringCGLIB$$829a225</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.fundgroup.backend.daoImpl;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.fundgroup.backend.dao.RoleDao;
+<i>4</i>&nbsp;import com.fundgroup.backend.entity.Role;
+<i>5</i>&nbsp;import com.fundgroup.backend.repository.RoleRepository;
+<i>6</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>7</i>&nbsp;import org.springframework.stereotype.Repository;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;@Repository
+<b class="fc"><i>10</i>&nbsp;public class RoleDaoImpl implements RoleDao {</b>
+<i>11</i>&nbsp;    @Autowired
+<i>12</i>&nbsp;    RoleRepository roleRepository;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;//    @Autowired
+<i>15</i>&nbsp;//    void setRoleRepository(RoleRepository roleRepository){
+<i>16</i>&nbsp;//      this.roleRepository = roleRepository;
+<i>17</i>&nbsp;//    }
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    @Override
+<i>20</i>&nbsp;    public Role findOne(Integer role_id){
+<b class="fc"><i>21</i>&nbsp;      return roleRepository.getById(role_id);</b>
+<i>22</i>&nbsp;    }
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    @Override
+<i>25</i>&nbsp;    public void save(Role role) {
+<b class="fc"><i>26</i>&nbsp;      roleRepository.save(role);</b>
+<b class="fc"><i>27</i>&nbsp;    }</b>
+<i>28</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-09-12 17:38</div>
+</div>
+</body>
+</html>

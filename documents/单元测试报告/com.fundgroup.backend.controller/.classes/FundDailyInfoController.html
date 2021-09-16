@@ -1,0 +1,153 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: FundDailyInfoController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.fundgroup.backend.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: FundDailyInfoController (com.fundgroup.backend.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FundDailyInfoController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (26/ 26)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.fundgroup.backend.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.alibaba.fastjson.JSONArray;
+<i>4</i>&nbsp;import com.alibaba.fastjson.JSONObject;
+<i>5</i>&nbsp;import com.fundgroup.backend.constant.TimeType;
+<i>6</i>&nbsp;import com.fundgroup.backend.dto.FundDailySimp;
+<i>7</i>&nbsp;import com.fundgroup.backend.dto.StockDailySimp;
+<i>8</i>&nbsp;import com.fundgroup.backend.service.FundDailyInfoService;
+<i>9</i>&nbsp;import com.fundgroup.backend.service.StockDailyInfoService;
+<i>10</i>&nbsp;import com.fundgroup.backend.utils.messageUtils.Message;
+<i>11</i>&nbsp;import com.fundgroup.backend.test100.MessageUtil;
+<i>12</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>13</i>&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+<i>14</i>&nbsp;import org.springframework.web.bind.annotation.RequestMethod;
+<i>15</i>&nbsp;import org.springframework.web.bind.annotation.RequestParam;
+<i>16</i>&nbsp;import org.springframework.web.bind.annotation.RestController;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;import java.util.List;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;@RestController
+<b class="fc"><i>21</i>&nbsp;public class FundDailyInfoController {</b>
+<i>22</i>&nbsp;	@Autowired
+<i>23</i>&nbsp;	private FundDailyInfoService fundDailyInfoService;
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;	@Autowired
+<i>26</i>&nbsp;	private StockDailyInfoService stockDailyInfoService;
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;	@RequestMapping(value = &quot;/anyone/fund/dailyinfo&quot;, method = RequestMethod.GET)
+<i>29</i>&nbsp;	public Message getFundDailyTimeRange(@RequestParam(&quot;fundCode&quot;) String fundCode, @RequestParam(&quot;timeType&quot;) Integer type) {
+<b class="fc"><i>30</i>&nbsp;		long daily_begin=System.currentTimeMillis();//test</b>
+<b class="fc"><i>31</i>&nbsp;		TimeType timeType = TimeType.values()[type];</b>
+<b class="fc"><i>32</i>&nbsp;		List&lt;FundDailySimp&gt; fundDailyInfos = fundDailyInfoService.getFundDailyTimeRange(fundCode, timeType);</b>
+<b class="fc"><i>33</i>&nbsp;		List&lt;StockDailySimp&gt; stockDailySimps = stockDailyInfoService.getStockDailyTimeRange(&quot;000300&quot;,timeType);</b>
+<b class="fc"><i>34</i>&nbsp;		JSONArray fundDailyArray = new JSONArray();</b>
+<b class="fc"><i>35</i>&nbsp;		JSONArray stockDailyArray = new JSONArray();</b>
+<b class="fc"><i>36</i>&nbsp;		fundDailyArray.addAll(fundDailyInfos);</b>
+<b class="fc"><i>37</i>&nbsp;		stockDailyArray.addAll(stockDailySimps);</b>
+<b class="fc"><i>38</i>&nbsp;		JSONObject jsonObject = new JSONObject();</b>
+<b class="fc"><i>39</i>&nbsp;		jsonObject.put(&quot;dailylist&quot;, fundDailyArray);</b>
+<b class="fc"><i>40</i>&nbsp;		jsonObject.put(&quot;stockdailylist&quot;, stockDailyArray);</b>
+<i>41</i>&nbsp;//		if (fundDailyInfos == null || stockDailySimps==null)
+<i>42</i>&nbsp;//			return new Message(MessageUtil.ERROR);
+<b class="fc"><i>43</i>&nbsp;		System.out.println(fundDailyInfos.size());</b>
+<b class="fc"><i>44</i>&nbsp;		long daily_end=System.currentTimeMillis();//test</b>
+<b class="fc"><i>45</i>&nbsp;		System.out.println(&quot;stock:&quot;);//test</b>
+<b class="fc"><i>46</i>&nbsp;		System.out.println(daily_end-daily_begin);//test</b>
+<b class="fc"><i>47</i>&nbsp;		return new Message(MessageUtil.SUCCESS, jsonObject);</b>
+<i>48</i>&nbsp;	}
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;	@RequestMapping(value = &quot;/anyone/fund/daily/info&quot;, method = RequestMethod.GET)
+<i>51</i>&nbsp;	public Message getFundDailyPage(@RequestParam(&quot;fundCode&quot;) String fundCode, @RequestParam(&quot;page&quot;) Integer page) {
+<b class="fc"><i>52</i>&nbsp;		Integer pageSize = 30;</b>
+<b class="fc"><i>53</i>&nbsp;		List&lt;FundDailySimp&gt; fundDailyInfos = fundDailyInfoService.getFundDailyDetailFourPage(fundCode, page, pageSize);</b>
+<b class="fc"><i>54</i>&nbsp;		JSONArray jsonArray = new JSONArray();</b>
+<b class="fc"><i>55</i>&nbsp;		jsonArray.addAll(fundDailyInfos);</b>
+<b class="fc"><i>56</i>&nbsp;		JSONObject jsonObject = new JSONObject();</b>
+<b class="fc"><i>57</i>&nbsp;		jsonObject.put(&quot;dailylist&quot;, jsonArray);</b>
+<i>58</i>&nbsp;//		if (fundDailyInfos == null)
+<i>59</i>&nbsp;//			return new Message(MessageUtil.ERROR);
+<b class="fc"><i>60</i>&nbsp;		System.out.println(fundDailyInfos.size());</b>
+<b class="fc"><i>61</i>&nbsp;		return new Message(MessageUtil.SUCCESS, jsonObject);</b>
+<i>62</i>&nbsp;	}
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;	@RequestMapping(value = &quot;/anyone/fund/daily/info/interpolation&quot;, method = RequestMethod.POST)
+<i>65</i>&nbsp;	public Message missingDateInterpolation()
+<i>66</i>&nbsp;	{
+<i>67</i>&nbsp;//		fundDailyInfoService.missingDateInterpolation();
+<b class="fc"><i>68</i>&nbsp;		return new Message(MessageUtil.SUCCESS);</b>
+<i>69</i>&nbsp;	}
+<i>70</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-09-12 17:38</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,181 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: StockBasicServiceImpl</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.fundgroup.backend.serviceImpl</a> ]
+</div>
+
+<h1>Coverage Summary for Class: StockBasicServiceImpl (com.fundgroup.backend.serviceImpl)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StockBasicServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/ 3)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.fundgroup.backend.serviceImpl;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.alibaba.fastjson.JSON;
+<i>4</i>&nbsp;import com.alibaba.fastjson.JSONArray;
+<i>5</i>&nbsp;import com.alibaba.fastjson.JSONObject;
+<i>6</i>&nbsp;import com.fundgroup.backend.service.StockBasicService;
+<i>7</i>&nbsp;import com.fundgroup.backend.utils.StockUtils;
+<i>8</i>&nbsp;import org.springframework.http.HttpStatus;
+<i>9</i>&nbsp;import org.springframework.http.ResponseEntity;
+<i>10</i>&nbsp;import org.springframework.stereotype.Service;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;import java.math.BigDecimal;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;@Service
+<b class="fc"><i>15</i>&nbsp;public class StockBasicServiceImpl implements StockBasicService {</b>
+<i>16</i>&nbsp;
+<b class="fc"><i>17</i>&nbsp;    private StockUtils stockUtils=new StockUtils();</b>
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    @Override
+<i>20</i>&nbsp;    public JSONObject getStockInfoById(String stockId)
+<i>21</i>&nbsp;    {
+<i>22</i>&nbsp;        //try get in Shanghai
+<i>23</i>&nbsp;//        ResponseEntity&lt;String&gt; response = stockUtils.getStockInfo(stockId);
+<i>24</i>&nbsp;//        HttpStatus statusCode = response.getStatusCode();
+<i>25</i>&nbsp;//        if(response.getStatusCode().value()!=200)
+<i>26</i>&nbsp;//            return null;
+<i>27</i>&nbsp;//        String body= response.getBody();
+<i>28</i>&nbsp;//        JSONObject jsonObject= JSON.parseObject(body);
+<i>29</i>&nbsp;//        JSONObject data=jsonObject.getJSONObject(&quot;data&quot;);
+<i>30</i>&nbsp;//        if(data==null)
+<i>31</i>&nbsp;//            return null;
+<i>32</i>&nbsp;//        String code=(String)data.get(&quot;code&quot;);
+<i>33</i>&nbsp;//        if(code==null)
+<i>34</i>&nbsp;//            return null;
+<i>35</i>&nbsp;//        double prePrice=((BigDecimal)data.get(&quot;prePrice&quot;)).doubleValue();
+<i>36</i>&nbsp;//        JSONArray details=data.getJSONArray(&quot;details&quot;);
+<i>37</i>&nbsp;//        int detailSize=details.size();
+<i>38</i>&nbsp;//        if(detailSize==0)
+<i>39</i>&nbsp;//            return null;
+<i>40</i>&nbsp;//        String curStr=details.getString(detailSize-1);
+<i>41</i>&nbsp;//        String curPriceStr=curStr.split(&quot;,&quot;)[1];
+<i>42</i>&nbsp;//        curPriceStr=String.format(&quot;%.2f&quot;,Double.parseDouble(curPriceStr));
+<i>43</i>&nbsp;//        String curTime=curStr.split(&quot;,&quot;)[0];
+<i>44</i>&nbsp;//        double curPrice=Double.parseDouble(curPriceStr);
+<i>45</i>&nbsp;//        Double change=(curPrice-prePrice)/prePrice*100;
+<i>46</i>&nbsp;//        JSONObject stockJson=new JSONObject();
+<i>47</i>&nbsp;//        stockJson.put(&quot;value&quot;,String.format(&quot;%.2f&quot;,change));
+<i>48</i>&nbsp;//        return stockJson;
+<b class="fc"><i>49</i>&nbsp;        return null;</b>
+<i>50</i>&nbsp;    }
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;//    @Override
+<i>53</i>&nbsp;//    public JSONObject getStockInfoByIdUrl2(String stockId)
+<i>54</i>&nbsp;//    {
+<i>55</i>&nbsp;//        ResponseEntity&lt;String&gt; response = stockUtils.getStockInfo(stockId);
+<i>56</i>&nbsp;//        System.out.println(response.getBody());
+<i>57</i>&nbsp;//        HttpStatus statusCode = response.getStatusCode();
+<i>58</i>&nbsp;//        if(response.getStatusCode().value()!=200)
+<i>59</i>&nbsp;//            return null;
+<i>60</i>&nbsp;//        String body= response.getBody();
+<i>61</i>&nbsp;//        JSONObject jsonObject= JSON.parseObject(body);
+<i>62</i>&nbsp;//        JSONObject data=jsonObject.getJSONObject(&quot;Datas&quot;);
+<i>63</i>&nbsp;//        if(data==null)
+<i>64</i>&nbsp;//            return null;
+<i>65</i>&nbsp;//        String priceStr=(String)data.get(&quot;Close&quot;);
+<i>66</i>&nbsp;//        Double price;
+<i>67</i>&nbsp;//        if(priceStr==null)
+<i>68</i>&nbsp;//        {
+<i>69</i>&nbsp;//            price=-10000.0;
+<i>70</i>&nbsp;//        }
+<i>71</i>&nbsp;//        else
+<i>72</i>&nbsp;//            price=Double.parseDouble(priceStr);
+<i>73</i>&nbsp;//
+<i>74</i>&nbsp;//        String changePercentageStr=(String)data.get(&quot;ChangePercent&quot;);
+<i>75</i>&nbsp;//        Double changePercentage;
+<i>76</i>&nbsp;//        if(changePercentageStr==null)
+<i>77</i>&nbsp;//        {
+<i>78</i>&nbsp;//            changePercentage=-10000.0;
+<i>79</i>&nbsp;//        }
+<i>80</i>&nbsp;//        else
+<i>81</i>&nbsp;//            changePercentage=Double.parseDouble(changePercentageStr);
+<i>82</i>&nbsp;//
+<i>83</i>&nbsp;//        String curTime=(String)data.get(&quot;TradeTime&quot;);
+<i>84</i>&nbsp;//        if(curTime==null)
+<i>85</i>&nbsp;//        {
+<i>86</i>&nbsp;//            curTime=&quot;--&quot;;
+<i>87</i>&nbsp;//        }
+<i>88</i>&nbsp;//        JSONObject stockJson=new JSONObject();
+<i>89</i>&nbsp;//
+<i>90</i>&nbsp;//
+<i>91</i>&nbsp;//        stockJson.put(&quot;price&quot;,price);
+<i>92</i>&nbsp;//        stockJson.put(&quot;changePercentage&quot;,changePercentage);
+<i>93</i>&nbsp;//        stockJson.put(&quot;time&quot;,curTime);
+<i>94</i>&nbsp;//        return stockJson;
+<i>95</i>&nbsp;//    }
+<i>96</i>&nbsp;
+<i>97</i>&nbsp;
+<i>98</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-09-12 17:38</div>
+</div>
+</body>
+</html>

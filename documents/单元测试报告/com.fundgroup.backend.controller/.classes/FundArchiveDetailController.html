@@ -1,0 +1,121 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: FundArchiveDetailController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.fundgroup.backend.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: FundArchiveDetailController (com.fundgroup.backend.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FundArchiveDetailController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.fundgroup.backend.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.alibaba.fastjson.JSON;
+<i>4</i>&nbsp;import com.alibaba.fastjson.JSONObject;
+<i>5</i>&nbsp;import com.fundgroup.backend.dto.FundArchiveDetail;
+<i>6</i>&nbsp;import com.fundgroup.backend.dto.FundDescription;
+<i>7</i>&nbsp;import com.fundgroup.backend.repository.FundBasicInfoRepository;
+<i>8</i>&nbsp;import com.fundgroup.backend.repository.FundManagerInfoRepository;
+<i>9</i>&nbsp;import com.fundgroup.backend.repository.FundMessageRepository;
+<i>10</i>&nbsp;import com.fundgroup.backend.utils.messageUtils.Message;
+<i>11</i>&nbsp;import com.fundgroup.backend.test100.MessageUtil;
+<i>12</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>13</i>&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+<i>14</i>&nbsp;import org.springframework.web.bind.annotation.RequestMethod;
+<i>15</i>&nbsp;import org.springframework.web.bind.annotation.RequestParam;
+<i>16</i>&nbsp;import org.springframework.web.bind.annotation.RestController;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;import java.util.List;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;@RestController
+<b class="fc"><i>21</i>&nbsp;public class FundArchiveDetailController {</b>
+<i>22</i>&nbsp;	@Autowired
+<i>23</i>&nbsp;	FundBasicInfoRepository fundBasicInfoRepository;
+<i>24</i>&nbsp;	@Autowired
+<i>25</i>&nbsp;	FundManagerInfoRepository fundManagerInfoRepository;
+<i>26</i>&nbsp;	@Autowired
+<i>27</i>&nbsp;	FundMessageRepository fundMessageRepository;
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;	@RequestMapping(value = &quot;/anyone/archive/detail&quot;, method = RequestMethod.GET)
+<i>30</i>&nbsp;	public Message getFundArchiveDetail(@RequestParam(&quot;code&quot;) String code) {
+<b class="fc"><i>31</i>&nbsp;		FundArchiveDetail ret = fundBasicInfoRepository.getFundArchiveDetailByFundCode(code);</b>
+<b class="fc"><i>32</i>&nbsp;		List&lt;String&gt; managerList = fundManagerInfoRepository.getManagerDescriptionByFundCode(code);</b>
+<b class="fc"><i>33</i>&nbsp;		List&lt;FundDescription&gt; descriptionList = fundMessageRepository.getFundDescriptionByFundCode(code);</b>
+<b class="fc"><i>34</i>&nbsp;		ret.setManagerList(managerList);</b>
+<b class="fc"><i>35</i>&nbsp;		ret.setDescriptionList(descriptionList);</b>
+<b class="fc"><i>36</i>&nbsp;		return new Message(MessageUtil.SUCCESS, (JSONObject) JSON.toJSON(ret));</b>
+<i>37</i>&nbsp;	}
+<i>38</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-09-12 17:38</div>
+</div>
+</body>
+</html>

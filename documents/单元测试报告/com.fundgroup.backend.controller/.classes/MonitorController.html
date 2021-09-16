@@ -1,0 +1,185 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: MonitorController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.fundgroup.backend.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: MonitorController (com.fundgroup.backend.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MonitorController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (22/ 22)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.fundgroup.backend.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.alibaba.fastjson.JSONObject;
+<i>4</i>&nbsp;import com.fundgroup.backend.entity.FundModel;
+<i>5</i>&nbsp;import com.fundgroup.backend.repository.FundBasicInfoRepository;
+<i>6</i>&nbsp;import com.fundgroup.backend.repository.FundCompetitionRepository;
+<i>7</i>&nbsp;import com.fundgroup.backend.repository.FundDailyInfoRepository;
+<i>8</i>&nbsp;import com.fundgroup.backend.repository.FundEstimateRepository;
+<i>9</i>&nbsp;import com.fundgroup.backend.repository.FundIndicatorRepository;
+<i>10</i>&nbsp;import com.fundgroup.backend.repository.FundModelRepository;
+<i>11</i>&nbsp;import com.fundgroup.backend.repository.FundPredictionRepository;
+<i>12</i>&nbsp;import com.fundgroup.backend.repository.FundRateRepository;
+<i>13</i>&nbsp;import com.fundgroup.backend.utils.messageUtils.Message;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;import java.time.LocalDateTime;
+<i>16</i>&nbsp;import java.util.Map;
+<i>17</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>18</i>&nbsp;import org.springframework.data.domain.PageRequest;
+<i>19</i>&nbsp;import org.springframework.data.domain.Pageable;
+<i>20</i>&nbsp;import org.springframework.web.bind.annotation.RequestBody;
+<i>21</i>&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+<i>22</i>&nbsp;import org.springframework.web.bind.annotation.RequestMethod;
+<i>23</i>&nbsp;import org.springframework.web.bind.annotation.RestController;
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;@RestController
+<b class="fc"><i>26</i>&nbsp;public class MonitorController {</b>
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;  @Autowired
+<i>29</i>&nbsp;  FundPredictionRepository fundPredictionRepository;
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;  @Autowired
+<i>32</i>&nbsp;  FundDailyInfoRepository fundDailyInfoRepository;
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;  @Autowired
+<i>35</i>&nbsp;  FundEstimateRepository fundEstimateRepository;
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;  @Autowired
+<i>38</i>&nbsp;  FundIndicatorRepository fundIndicatorRepository;
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;  @Autowired
+<i>41</i>&nbsp;  FundBasicInfoRepository fundBasicInfoRepository;
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;  @Autowired
+<i>44</i>&nbsp;  FundCompetitionRepository fundCompetitionRepository;
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;  @Autowired
+<i>47</i>&nbsp;  FundRateRepository fundRateRepository;
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;  @Autowired
+<i>50</i>&nbsp;  FundModelRepository fundModelRepository;
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;//  TODO: change access
+<i>53</i>&nbsp;  @RequestMapping(value = &quot;/anyone/monitor/getMonitorData&quot;, method = RequestMethod.GET)
+<i>54</i>&nbsp;  public Message getMonitorData() {
+<b class="fc"><i>55</i>&nbsp;    Pageable pageable = PageRequest.of(0, 30);</b>
+<b class="fc"><i>56</i>&nbsp;    LocalDateTime localDateTime = LocalDateTime.now();</b>
+<b class="fc"><i>57</i>&nbsp;    JSONObject jsonObject = new JSONObject();</b>
+<i>58</i>&nbsp;
+<b class="fc"><i>59</i>&nbsp;    jsonObject.put(&quot;latestPredictionData&quot;, fundPredictionRepository.getMonitorDate(localDateTime));</b>
+<i>60</i>&nbsp;//    jsonObject.put(&quot;NAVData&quot;, fundDailyInfoRepository.getMonitorDate());
+<b class="fc"><i>61</i>&nbsp;    jsonObject.put(&quot;historyData&quot;, fundDailyInfoRepository.getMonitorHistory(pageable));</b>
+<b class="fc"><i>62</i>&nbsp;    jsonObject.put(&quot;basicFundTypeData&quot;, fundBasicInfoRepository.getTypeAndNum());</b>
+<i>63</i>&nbsp;//    jsonObject.put(&quot;fundCompetitionData&quot;, fundCompetitionRepository.getMonitorData());
+<i>64</i>&nbsp;//    jsonObject.put(&quot;fundRateData&quot;, fundRateRepository.getMonitorData());
+<b class="fc"><i>65</i>&nbsp;    return new Message(0, &quot;获取监控数据成功&quot;, jsonObject);</b>
+<i>66</i>&nbsp;  }
+<i>67</i>&nbsp;
+<i>68</i>&nbsp;//  TODO: Fix access
+<i>69</i>&nbsp;  @RequestMapping(value = &quot;/anyone/monitor/getWorkplaceData&quot;, method = RequestMethod.GET)
+<i>70</i>&nbsp;  public Message getWorkplaceData() {
+<b class="fc"><i>71</i>&nbsp;    JSONObject jsonObject = new JSONObject();</b>
+<i>72</i>&nbsp;
+<b class="fc"><i>73</i>&nbsp;    jsonObject.put(&quot;modelTypeData&quot;, fundModelRepository.findAll());</b>
+<b class="fc"><i>74</i>&nbsp;    return new Message(0, &quot;获取工作区成功&quot;, jsonObject);</b>
+<i>75</i>&nbsp;  }
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;//  TODO: Fix access
+<i>78</i>&nbsp;  @RequestMapping(value = &quot;/anyone/monitor/setTypeModel&quot;, method = RequestMethod.POST)
+<i>79</i>&nbsp;  public Message setTypeModel(@RequestBody Map&lt;String, String&gt; param) {
+<i>80</i>&nbsp;
+<b class="fc"><i>81</i>&nbsp;    Integer type = Integer.valueOf(param.get(&quot;id&quot;));</b>
+<b class="fc"><i>82</i>&nbsp;    FundModel fundModel = fundModelRepository.findById(type).orElse(new FundModel(type));</b>
+<b class="fc"><i>83</i>&nbsp;    fundModel.setFundCode(param.get(&quot;code&quot;));</b>
+<i>84</i>&nbsp;
+<b class="fc"><i>85</i>&nbsp;    fundModelRepository.saveAndFlush(fundModel);</b>
+<b class="fc"><i>86</i>&nbsp;    JSONObject jsonObject = new JSONObject();</b>
+<b class="fc"><i>87</i>&nbsp;    jsonObject.put(&quot;modelTypeData&quot;,</b>
+<b class="fc"><i>88</i>&nbsp;        fundModelRepository.findAll());</b>
+<i>89</i>&nbsp;
+<b class="fc"><i>90</i>&nbsp;    return new Message(0, &quot;修改成功&quot;, jsonObject);</b>
+<i>91</i>&nbsp;  }
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;  @RequestMapping(value = &quot;/anyone/monitor/deleteModel&quot;, method = RequestMethod.POST)
+<i>94</i>&nbsp;  public Message deleteTypeModel(@RequestBody Map&lt;String, String&gt; param) {
+<i>95</i>&nbsp;
+<b class="fc"><i>96</i>&nbsp;    Integer type = Integer.valueOf(param.get(&quot;fundType&quot;));</b>
+<b class="fc"><i>97</i>&nbsp;    fundModelRepository.deleteById(type);</b>
+<i>98</i>&nbsp;
+<b class="fc"><i>99</i>&nbsp;    return new Message(0, &quot;删除成功&quot;);</b>
+<i>100</i>&nbsp;  }
+<i>101</i>&nbsp;
+<i>102</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-09-12 17:38</div>
+</div>
+</body>
+</html>

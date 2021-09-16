@@ -1,0 +1,50 @@
+{
+  "访问首页" : {
+    "transaction" : "访问首页",
+    "sampleCount" : 120000,
+    "errorCount" : 158,
+    "errorPct" : 0.13166666,
+    "meanResTime" : 57.2250083333331,
+    "medianResTime" : 26.0,
+    "minResTime" : 7.0,
+    "maxResTime" : 21068.0,
+    "pct1ResTime" : 98.0,
+    "pct2ResTime" : 209.95000000000073,
+    "pct3ResTime" : 1365.7300000000432,
+    "throughput" : 537.0617352464666,
+    "receivedKBytesPerSec" : 405.7056786656142,
+    "sentKBytesPerSec" : 126.75567788939215
+  },
+  "Total" : {
+    "transaction" : "Total",
+    "sampleCount" : 240000,
+    "errorCount" : 166,
+    "errorPct" : 0.06916667,
+    "meanResTime" : 44.445458333333,
+    "medianResTime" : 27.0,
+    "minResTime" : 7.0,
+    "maxResTime" : 21068.0,
+    "pct1ResTime" : 60.0,
+    "pct2ResTime" : 75.0,
+    "pct3ResTime" : 139.0,
+    "throughput" : 1073.9648545001367,
+    "receivedKBytesPerSec" : 920.9444052584004,
+    "sentKBytesPerSec" : 255.20563560260615
+  },
+  "第二tab查询" : {
+    "transaction" : "第二tab查询",
+    "sampleCount" : 120000,
+    "errorCount" : 8,
+    "errorPct" : 0.006666667,
+    "meanResTime" : 31.665908333333586,
+    "medianResTime" : 34.0,
+    "minResTime" : 9.0,
+    "maxResTime" : 21064.0,
+    "pct1ResTime" : 103.0,
+    "pct2ResTime" : 196.0,
+    "pct3ResTime" : 927.9600000000064,
+    "throughput" : 537.1891577321664,
+    "receivedKBytesPerSec" : 515.497019754292,
+    "sentKBytesPerSec" : 128.51813433086377
+  }
+}
