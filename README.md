@@ -1,5 +1,5 @@
 # Investas
-Project of SE128. A fund analysis app.
+A fund analysis app.
 
 
    
